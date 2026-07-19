@@ -35,9 +35,7 @@
         /* ================= Tabs System ================= */
         .tab-content { display: none; flex: 1; overflow-y: auto; padding: 20px; flex-direction: column; align-items: center; }
         .tab-content.active { display: flex; }
-        .page-title { background: #fff; padding: 10px 20px; border-radius: 20px; font-weight: bold; color: #7e57c2; margin-bottom: 5px; width: 100%; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .page-subtitle { font-size: 12px; color: #777; margin-bottom: 20px; text-align: center; }
-
+        
         /* ================= 1. Home Tab ================= */
         .speech-bubble { background: #fff; padding: 12px 20px; border-radius: 20px; font-size: 14px; margin-top: 10px; margin-bottom: 30px; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.05); animation: float 3s ease-in-out infinite; text-align: center; max-width: 80%; }
         .speech-bubble::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: #fff transparent transparent transparent; }
@@ -47,27 +45,36 @@
         .eye::after { content: ''; position: absolute; top: 5px; right: 5px; width: 10px; height: 10px; background: #fff; border-radius: 50%; }
         .pet-mouth { position: absolute; bottom: 40px; width: 30px; height: 15px; border-bottom: 4px solid #000; border-radius: 0 0 50px 50px; }
 
-        /* ================= 2. Pet Selection Tab ================= */
+        /* ================= 2. Pet Selection Tab (ปรับตามรูปเป๊ะๆ) ================= */
+        /* พื้นหลังลายตารางหมากรุกจำลองแบบในรูป */
+        #tab-pet { background-color: #fff; background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0); background-size: 20px 20px; background-position: 0 0, 10px 10px; padding: 15px; }
+        
+        .pet-modal-header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 5px; color: #3949ab; }
+        .pet-modal-header i { font-size: 18px; background: #fff; padding: 8px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; }
+        .pet-modal-header h3 { font-size: 18px; font-weight: bold; }
+        .pet-subtitle { font-size: 12px; color: #555; text-align: center; margin-bottom: 20px; width: 100%; }
+
         .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; margin-bottom: 20px; }
-        .pet-card { background: transparent; border-radius: 12px; padding: 15px 5px 10px 5px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.2s; position: relative; }
+        .pet-card { background: transparent; border-radius: 12px; padding: 10px 5px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.2s; position: relative; }
         
-        /* New Selected Style matching image */
-        .pet-card.selected { border: 2px solid #8c9eff; background: rgba(232, 234, 246, 0.8); }
-        .pet-card .badge { position: absolute; display: none; }
-        .pet-card.selected .badge { display: block; }
+        /* สไตล์ตอนถูกเลือก (กรอบสีม่วง พื้นหลังม่วงอ่อน) */
+        .pet-card.selected { border: 2px solid #9fa8da; background: #e8eaf6; box-shadow: 0 4px 10px rgba(159, 168, 218, 0.4); }
         
-        /* Crown & Checkmark styling */
-        .crown { top: -5px; left: -5px; color: #ffca28; font-size: 18px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); transform: rotate(-20deg); }
-        .check { top: 3px; right: 3px; color: #fff; font-size: 10px; background: #7e57c2; width: 16px; height: 16px; border-radius: 50%; display: flex !important; justify-content: center; align-items: center; border: 1.5px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        /* ซ่อนมงกุฎและติ๊กถูกในสถานะปกติ */
+        .pet-card .crown, .pet-card .check { display: none; position: absolute; }
+        /* แสดงมงกุฎและติ๊กถูกเมื่อถูกเลือก */
+        .pet-card.selected .crown { display: block; top: -8px; left: -5px; color: #ffca28; font-size: 22px; transform: rotate(-20deg); text-shadow: 0 2px 2px rgba(0,0,0,0.2); z-index: 2; }
+        .pet-card.selected .check { display: flex; top: -5px; right: -5px; color: #fff; font-size: 10px; background: #7e57c2; width: 18px; height: 18px; border-radius: 50%; justify-content: center; align-items: center; border: 2px solid #fff; z-index: 2; }
         
-        .pet-card .emoji { font-size: 35px; margin-bottom: 5px; display: block; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1)); }
-        .pet-card p { font-size: 12px; color: #424242; font-weight: bold; margin-top: 5px; }
+        .pet-card img { width: 100%; max-width: 60px; height: auto; margin-bottom: 5px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1)); }
+        .pet-card p { font-size: 12px; color: #424242; font-weight: bold; }
         
-        /* Purple Gradient Button */
-        .btn-confirm { background: linear-gradient(90deg, #b388ff 0%, #7c4dff 100%); color: white; border: none; padding: 14px 30px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; width: 90%; box-shadow: 0 4px 10px rgba(124, 77, 255, 0.3); transition: 0.2s; margin-top: 10px; }
+        /* ปุ่มยืนยันสีม่วง Gradient */
+        .btn-confirm { background: linear-gradient(90deg, #b388ff 0%, #7c4dff 100%); color: white; border: none; padding: 14px 30px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; width: 90%; box-shadow: 0 4px 10px rgba(124, 77, 255, 0.3); transition: 0.2s; margin-top: auto; }
         .btn-confirm:active { transform: scale(0.95); }
 
         /* ================= 3. Diary Tab ================= */
+        .page-title { background: #fff; padding: 10px 20px; border-radius: 20px; font-weight: bold; color: #7e57c2; margin-bottom: 15px; width: 100%; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .diary-card { background: #fff; padding: 15px; border-radius: 20px; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; }
         .calendar-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; font-size: 12px; color: #777; }
@@ -84,7 +91,7 @@
         
         .diary-input { width: 100%; height: 80px; border-radius: 12px; border: 1px solid #e0e0e0; padding: 10px; font-size: 13px; resize: none; background: #f9f9f9; outline: none; transition: 0.3s; margin-bottom: 10px; }
         .diary-input:focus { border-color: #7c4dff; background: #fff; }
-        
+
         /* ================= 4. Shop Tab ================= */
         .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; }
         .shop-item { background: #fff; border-radius: 15px; padding: 15px 5px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; }
@@ -100,7 +107,7 @@
         .nav-item.active { color: #7e57c2; font-weight: bold; }
         .nav-item.active i { background: #ede7f6; color: #7e57c2; }
 
-        /* ================= Toast Notification ================= */
+        /* ================= Toast ================= */
         .toast { position: absolute; top: 120px; left: 50%; transform: translateX(-50%); background: rgba(50, 50, 50, 0.9); color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
@@ -108,13 +115,11 @@
         @media (min-width: 415px) { body { background-color: #333; } .mobile-container { border-radius: 30px; border: 8px solid #222; } }
     </style>
 </head>
-<body onload="renderCalendar()">
+<body>
 
     <div class="mobile-container">
-        <!-- Toast Notification -->
         <div id="toast" class="toast">สำเร็จ!</div>
         
-        <!-- Header -->
         <header class="top-bar">
             <div class="profile-section">
                 <div class="profile-pic">👩</div>
@@ -137,90 +142,94 @@
         <main id="tab-home" class="tab-content active">
             <div class="speech-bubble" id="pet-speech">ยินดีต้อนรับกลับมา! วันนี้ทำอะไรดี? 💙</div>
             <div class="pet-character" id="main-pet" onclick="pokePet()">
-                <!-- Default Blob Face -->
                 <div class="pet-eyes" id="blob-face"><div class="eye"></div><div class="eye"></div></div>
                 <div class="pet-mouth" id="blob-mouth"></div>
             </div>
         </main>
 
-        <!-- 2. Pet Selection Tab (12 Pets updated UI) -->
+        <!-- 2. Pet Selection Tab (ดีไซน์ใหม่เหมือนรูปเป๊ะๆ ใช้ Tag <img>) -->
         <main id="tab-pet" class="tab-content">
-            <div class="page-title">เลือกสัตว์เลี้ยง</div>
-            <div class="page-subtitle">เลือกเพื่อดูแลใจที่จะอยู่กับคุณใน Joy Blob</div>
+            <div class="pet-modal-header">
+                <i class="fas fa-arrow-left" onclick="switchTab('tab-home', document.querySelector('.nav-item:nth-child(1)'))"></i>
+                <h3>เลือกสัตว์เลี้ยง</h3>
+                <i class="fas fa-times" onclick="switchTab('tab-home', document.querySelector('.nav-item:nth-child(1)'))"></i>
+            </div>
+            <p class="pet-subtitle">เลือกเพื่อดูแลใจที่จะอยู่กับคุณใน Joy Blob</p>
             
             <div class="grid-container">
-                <!-- Blob -->
-                <div class="pet-card selected" onclick="selectPet(this, 'radial-gradient(circle, #82b1ff 0%, #2979ff 100%)', '')">
-                    <i class="fas fa-crown badge crown"></i>
-                    <i class="fas fa-check badge check"></i>
-                    <span class="emoji">💧</span><p>Blob</p>
+                <!-- 
+                  🔴 ตรง src="..." คุณสามารถนำลิงก์รูปภาพน้องๆ ที่วาดไว้มาใส่แทนลิงก์จำลองได้เลยครับ 
+                -->
+                <div class="pet-card selected" onclick="selectPet(this, '#2979ff')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/b3e5fc/2979ff?text=Blob" alt="Blob">
+                    <p>Blob</p>
                 </div>
-                <!-- Bunny -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffb6c1 0%, #ff69b4 100%)', '🐰')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🐰</span><p>Bunny</p>
+                <div class="pet-card" onclick="selectPet(this, '#ff69b4')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/f8bbd0/e91e63?text=Bunny" alt="Bunny">
+                    <p>Bunny</p>
                 </div>
-                <!-- Bear -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #d2b48c 0%, #8b4513 100%)', '🐻')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🐻</span><p>Bear</p>
+                <div class="pet-card" onclick="selectPet(this, '#8b4513')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/d7ccc8/795548?text=Bear" alt="Bear">
+                    <p>Bear</p>
                 </div>
-                <!-- Cat -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffdead 0%, #ffa500 100%)', '🐱')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🐱</span><p>Cat</p>
+                <div class="pet-card" onclick="selectPet(this, '#ffa500')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/ffe0b2/f57c00?text=Cat" alt="Cat">
+                    <p>Cat</p>
                 </div>
                 
-                <!-- Puppy -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #f5f5dc 0%, #deb887 100%)', '🐶')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🐶</span><p>Puppy</p>
+                <div class="pet-card" onclick="selectPet(this, '#deb887')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/dcedc8/8bc34a?text=Puppy" alt="Puppy">
+                    <p>Puppy</p>
                 </div>
-                <!-- Penguin -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #b0e0e6 0%, #4682b4 100%)', '🐧')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🐧</span><p>Penguin</p>
+                <div class="pet-card" onclick="selectPet(this, '#4682b4')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/c5cae9/3f51b5?text=Penguin" alt="Penguin">
+                    <p>Penguin</p>
                 </div>
-                <!-- Panda -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffffff 0%, #cccccc 100%)', '🐼')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🐼</span><p>Panda</p>
+                <div class="pet-card" onclick="selectPet(this, '#cccccc')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/f5f5f5/9e9e9e?text=Panda" alt="Panda">
+                    <p>Panda</p>
                 </div>
-                <!-- Fox -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffb732 0%, #ff7f50 100%)', '🦊')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🦊</span><p>Fox</p>
+                <div class="pet-card" onclick="selectPet(this, '#ff7f50')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/ffccbc/ff5722?text=Fox" alt="Fox">
+                    <p>Fox</p>
                 </div>
 
-                <!-- Chick -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffffe0 0%, #ffd700 100%)', '🐥')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🐥</span><p>Chick</p>
+                <div class="pet-card" onclick="selectPet(this, '#ffd700')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/fff9c4/fbc02d?text=Chick" alt="Chick">
+                    <p>Chick</p>
                 </div>
-                <!-- Otter -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #deb887 0%, #a0522d 100%)', '🦦')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🦦</span><p>Otter</p>
+                <div class="pet-card" onclick="selectPet(this, '#a0522d')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/bcaaa4/795548?text=Otter" alt="Otter">
+                    <p>Otter</p>
                 </div>
-                <!-- Hamster -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffe4b5 0%, #d2b48c 100%)', '🐹')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🐹</span><p>Hamster</p>
+                <div class="pet-card" onclick="selectPet(this, '#d2b48c')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/ffecb3/ffca28?text=Hamster" alt="Hamster">
+                    <p>Hamster</p>
                 </div>
-                <!-- Dino -->
-                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #98fb98 0%, #3cb371 100%)', '🦕')">
-                    <i class="fas fa-crown badge crown"></i><i class="fas fa-check badge check"></i>
-                    <span class="emoji">🦕</span><p>Dino</p>
+                <div class="pet-card" onclick="selectPet(this, '#3cb371')">
+                    <i class="fas fa-crown crown"></i><i class="fas fa-check check"></i>
+                    <img src="https://placehold.co/100x100/c8e6c9/4caf50?text=Dino" alt="Dino">
+                    <p>Dino</p>
                 </div>
             </div>
-            <button class="btn-confirm" onclick="confirmPet()">ยืนยันเลือกห้อง</button>
+            <button class="btn-confirm" onclick="confirmPet()">ยืนยันเลือกน้อง</button>
         </main>
 
         <!-- 3. Diary Tab -->
         <main id="tab-diary" class="tab-content">
             <div class="page-title">ไดอารี่ & อารมณ์</div>
             
-            <!-- Dynamic Calendar Module -->
             <div class="diary-card">
                 <div class="calendar-header">
                     <i class="fas fa-chevron-left" style="color: #ccc; cursor: pointer;"></i>
@@ -228,11 +237,10 @@
                     <i class="fas fa-chevron-right" style="color: #ccc; cursor: pointer;"></i>
                 </div>
                 <div class="calendar-grid" id="dynamic-calendar">
-                    <!-- วันที่จะถูกสร้างขึ้นมาอัตโนมัติด้วย JavaScript -->
+                    <!-- จะถูกสร้างขึ้นมาอัตโนมัติด้วย JavaScript เป็นวันปัจจุบัน -->
                 </div>
             </div>
 
-            <!-- Mood & Typing Module -->
             <div class="diary-card mood-section">
                 <p>วันนี้คุณรู้สึกอย่างไรบ้าง?</p>
                 <div class="mood-grid">
@@ -253,9 +261,6 @@
                 <div class="shop-item" onclick="buyItem('เบอร์เกอร์', 350)"><i class="fas fa-hamburger" style="color: #ff9800;"></i><p>เบอร์เกอร์</p><div class="price-tag">350 C</div></div>
                 <div class="shop-item" onclick="buyItem('แอปเปิ้ล', 120)"><i class="fas fa-apple-alt" style="color: #f44336;"></i><p>แอปเปิ้ล</p><div class="price-tag">120 C</div></div>
                 <div class="shop-item" onclick="buyItem('ไอศกรีม', 200)"><i class="fas fa-ice-cream" style="color: #e91e63;"></i><p>ไอศกรีม</p><div class="price-tag">200 C</div></div>
-                <div class="shop-item" onclick="buyItem('ข้าวกล่อง', 500)"><i class="fas fa-box-open" style="color: #8bc34a;"></i><p>ข้าวกล่อง</p><div class="price-tag">500 C</div></div>
-                <div class="shop-item" onclick="buyItem('น้ำส้ม', 150)"><i class="fas fa-glass-whiskey" style="color: #ffc107;"></i><p>น้ำส้ม</p><div class="price-tag">150 C</div></div>
-                <div class="shop-item" onclick="buyItem('ยาเร่งโต', 800)"><i class="fas fa-magic" style="color: #00bcd4;"></i><p>ยาเร่งโต</p><div class="price-tag">800 C</div></div>
             </div>
         </main>
 
@@ -266,43 +271,36 @@
             <div class="nav-item" onclick="switchTab('tab-diary', this)"><i class="fas fa-book"></i><span>ไดอารี่</span></div>
             <div class="nav-item" onclick="switchTab('tab-shop', this)"><i class="fas fa-store"></i><span>ร้านค้า</span></div>
         </nav>
-
     </div>
 
     <!-- JavaScript Interactive Logic -->
     <script>
-        // --- Dynamic Calendar Render ---
+        // --- 1. ระบบปฏิทินดึงวัน/เดือนปัจจุบันอัตโนมัติ ---
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCalendar();
+        });
+
         function renderCalendar() {
             const today = new Date();
             const currentYear = today.getFullYear();
-            const currentMonth = today.getMonth(); // 0 - 11
+            const currentMonth = today.getMonth(); 
             const currentDate = today.getDate();
 
             const monthNames = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
             const thaiYear = currentYear + 543;
 
-            // Set Header
             document.getElementById('calendar-month-year').innerText = `${monthNames[currentMonth]} ${thaiYear}`;
 
-            // Calculate days for the grid
-            const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay(); // 0(Sun) - 6(Sat)
+            const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
             const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-            
             const calGrid = document.getElementById('dynamic-calendar');
-            calGrid.innerHTML = ''; // Clear old data
+            calGrid.innerHTML = ''; 
 
-            // Add Day Headers
             const daysHeader = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
-            daysHeader.forEach(day => {
-                calGrid.innerHTML += `<div class="cal-day">${day}</div>`;
-            });
+            daysHeader.forEach(day => { calGrid.innerHTML += `<div class="cal-day">${day}</div>`; });
 
-            // Add empty slots before the 1st of month
-            for(let i = 0; i < firstDayIndex; i++) {
-                calGrid.innerHTML += `<div></div>`;
-            }
+            for(let i = 0; i < firstDayIndex; i++) { calGrid.innerHTML += `<div></div>`; }
 
-            // Add dates and highlight today
             for(let i = 1; i <= daysInMonth; i++) {
                 if (i === currentDate) {
                     calGrid.innerHTML += `<div class="cal-date active">${i}</div>`;
@@ -312,14 +310,11 @@
             }
         }
 
-        // --- State Variables ---
+        // --- ตัวแปรและฟังก์ชันอื่นๆ ---
         let coins = 12450;
-        let tempPetBg = 'radial-gradient(circle, #82b1ff 0%, #2979ff 100%)';
-        let tempPetEmoji = '';
-        let currentPetBg = tempPetBg;
-        let currentPetEmoji = tempPetEmoji;
+        let tempColor = '#2979ff';
+        let currentColor = tempColor;
 
-        // --- Core Functions ---
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.innerText = message;
@@ -331,57 +326,22 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            navElement.classList.add('active');
+            if (navElement) navElement.classList.add('active');
         }
 
-        // --- Home & Pet Interaction ---
-        const pokeMessages = ["รักเจ้านายที่สุดเลย! 💖", "หิวจัง พาไปร้านค้าหน่อย 🍔", "มาเล่นกันเถอะ! 🎮", "ฮึบๆ พลังงานเต็มเปี่ยม! ⚡"];
-        function pokePet() {
-            const speech = document.getElementById('pet-speech');
-            speech.innerText = pokeMessages[Math.floor(Math.random() * pokeMessages.length)];
-            const pet = document.getElementById('main-pet');
-            pet.style.animation = 'none';
-            setTimeout(() => { pet.style.animation = 'bounce 2s ease-in-out infinite'; }, 50);
-        }
-
-        // --- Pet Selection Logic ---
-        function selectPet(element, bgGradient, emoji) {
+        function selectPet(element, color) {
             document.querySelectorAll('.pet-card').forEach(card => card.classList.remove('selected'));
             element.classList.add('selected');
-            tempPetBg = bgGradient;
-            tempPetEmoji = emoji;
+            tempColor = color;
         }
 
         function confirmPet() {
-            currentPetBg = tempPetBg;
-            currentPetEmoji = tempPetEmoji;
-            
-            const mainPet = document.getElementById('main-pet');
-            const blobFace = document.getElementById('blob-face');
-            const blobMouth = document.getElementById('blob-mouth');
-
-            mainPet.style.background = currentPetBg;
-
-            if (currentPetEmoji === '') {
-                blobFace.style.display = 'flex';
-                blobMouth.style.display = 'block';
-                mainPet.innerText = '';
-                mainPet.appendChild(blobFace);
-                mainPet.appendChild(blobMouth);
-            } else {
-                blobFace.style.display = 'none';
-                blobMouth.style.display = 'none';
-                mainPet.innerText = currentPetEmoji;
-            }
-
+            currentColor = tempColor;
+            document.getElementById('main-pet').style.background = `radial-gradient(circle, #fff 0%, ${currentColor} 100%)`;
             showToast('อัปเดตสัตว์เลี้ยงสำเร็จ! 🎉');
-            
-            const homeNav = document.querySelector('.nav-item:nth-child(1)');
-            switchTab('tab-home', homeNav);
-            document.getElementById('pet-speech').innerText = "พร้อมออกเดินทางแล้ว! ✨";
+            switchTab('tab-home', document.querySelector('.nav-item:nth-child(1)'));
         }
 
-        // --- Diary Logic ---
         function selectMood(element) {
             document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
@@ -390,36 +350,28 @@
         function saveDiary() {
             const textInput = document.getElementById('diary-text');
             const hasMood = document.querySelector('.mood-btn.active');
-            
             if (textInput.value.trim() === '' && !hasMood) {
                 showToast('กรุณาเลือกอารมณ์หรือพิมพ์ข้อความก่อนนะคะ ✏️');
                 return;
             }
-
             showToast('บันทึกไดอารี่เรียบร้อย! ความลับปลอดภัย 🔒');
-            document.getElementById('pet-speech').innerText = "เราจดบันทึกของวันนี้ไว้ให้แล้วนะ! เก่งมาก 💙";
-            
-            setTimeout(() => {
-                textInput.value = '';
-                if(hasMood) hasMood.classList.remove('active');
-            }, 1000);
+            setTimeout(() => { textInput.value = ''; if(hasMood) hasMood.classList.remove('active'); }, 1000);
         }
 
-        // --- Shop Logic ---
         function buyItem(itemName, price) {
             if (coins >= price) {
                 coins -= price;
                 document.getElementById('coin-val').innerText = coins.toLocaleString();
-                
-                const coinUi = document.getElementById('coin-ui');
-                coinUi.style.background = '#e8f5e9';
-                setTimeout(() => { coinUi.style.background = '#fff'; }, 300);
-
                 showToast(`ซื้อ ${itemName} สำเร็จ! 🛍️`);
-                document.getElementById('pet-speech').innerText = `เย่! ได้ ${itemName} แล้ว ขอบคุณน้าา 😋`;
             } else {
-                showToast('เหรียญไม่พอจ้า 😢 ทำภารกิจเพิ่มนะ');
+                showToast('เหรียญไม่พอจ้า 😢');
             }
+        }
+        
+        function pokePet() {
+            const pet = document.getElementById('main-pet');
+            pet.style.animation = 'none';
+            setTimeout(() => { pet.style.animation = 'bounce 2s ease-in-out infinite'; }, 50);
         }
     </script>
 </body>
