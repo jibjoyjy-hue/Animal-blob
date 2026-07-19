@@ -3,49 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joy Blob - My Pet</title>
+    <title>Joy Blob - Full Game</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* CSS Core */
+        :root { --primary-blue: #60a5fa; --hp: #fb7185; --energy: #fbbf24; }
         body { font-family: 'Kanit', sans-serif; background: #cbd5e1; display: flex; justify-content: center; height: 100vh; margin: 0; }
-        .phone { width: 390px; height: 844px; background: #f5f3ff; border-radius: 40px; border: 10px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-        .header { padding: 40px 20px 20px; background: white; border-bottom: 1px solid #e2e8f0; }
+        .phone { width: 390px; height: 844px; background: linear-gradient(180deg, #e0f2fe 0%, #f3e8ff 100%); border-radius: 40px; border: 10px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        .header { background: rgba(255,255,255,0.9); padding: 40px 20px 20px; border-bottom: 1px solid #e2e8f0; }
         .content { flex: 1; overflow-y: auto; padding: 20px; }
-        .nav { height: 80px; display: flex; justify-content: space-around; align-items: center; background: white; border-top: 1px solid #e2e8f0; }
         .screen { display: none; }
         .screen.active { display: block; }
-        .btn { padding: 15px; background: #a855f7; color: white; border: none; border-radius: 15px; width: 100%; margin-bottom: 10px; cursor: pointer; }
+        .nav { height: 80px; display: flex; justify-content: space-around; align-items: center; background: white; border-top: 1px solid #e2e8f0; }
+        .btn { padding: 15px; background: var(--primary-blue); color: white; border: none; border-radius: 15px; width: 100%; margin-bottom: 10px; cursor: pointer; }
+        .stat-bar { width: 100%; height: 15px; background: #e2e8f0; border-radius: 10px; margin-bottom: 5px; overflow: hidden; }
+        .fill { height: 100%; transition: width 0.3s; }
     </style>
 </head>
 <body>
 
 <div class="phone">
     <header class="header">
-        <div id="status">ยินดีต้อนรับสู่ Joy Blob!</div>
+        <div class="stat-bar"><div id="hpFill" class="fill" style="background:var(--hp); width:90%"></div></div>
+        <div class="stat-bar"><div id="enFill" class="fill" style="background:var(--energy); width:80%"></div></div>
+        <div id="status">เงิน: <span id="coins">12,450</span> 🪙</div>
     </header>
     
     <main class="content">
+        <!-- Home -->
         <section id="home" class="screen active">
-            <div style="font-size: 100px; text-align: center; margin: 40px 0;">💧</div>
-            <button class="btn" onclick="openScreen('house')">เข้าสู่โหมดบ้าน</button>
+            <div id="blob" style="font-size: 120px; text-align: center; margin: 40px 0;">💧</div>
+            <div id="bubble" style="background:white; padding:15px; border-radius:20px; text-align:center;">สวัสดีจ้า! วันนี้ทำอะไรดี?</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:20px;">
+                <button class="btn" onclick="showScreen('house')">🏠 บ้าน</button>
+                <button class="btn" onclick="showScreen('diary')">📔 ไดอารี่</button>
+            </div>
         </section>
 
+        <!-- House -->
         <section id="house" class="screen">
-            <h3>บ้านของน้อง</h3>
-            <button class="btn" onclick="openScreen('home')">กลับหน้าโฮม</button>
+            <h3>เลือกห้อง</h3>
+            <button class="btn" onclick="showScreen('dining')">🍽️ ห้องอาหาร</button>
+            <button class="btn" onclick="showScreen('bedroom')">🛏️ ห้องนอน</button>
+            <button class="btn" style="background:#94a3b8" onclick="showScreen('home')">กลับ</button>
+        </section>
+
+        <!-- Dining -->
+        <section id="dining" class="screen">
+            <h3>ห้องอาหาร</h3>
+            <button class="btn" onclick="feedAction()">ให้อาหาร (💖+5, ⚡+5)</button>
+            <button class="btn" style="background:#94a3b8" onclick="showScreen('house')">กลับ</button>
+        </section>
+
+        <!-- Bedroom -->
+        <section id="bedroom" class="screen">
+            <h3>ห้องนอน</h3>
+            <button class="btn" onclick="sleepAction()">เข้านอน (⚡+15)</button>
+            <button class="btn" style="background:#94a3b8" onclick="showScreen('house')">กลับ</button>
+        </section>
+
+        <!-- Diary -->
+        <section id="diary" class="screen">
+            <h2>ไดอารี่ 📔</h2>
+            <textarea id="note" style="width:100%; height:80px; margin:10px 0;"></textarea>
+            <button class="btn" onclick="saveNote()">บันทึกอารมณ์</button>
+            <button class="btn" style="background:#94a3b8" onclick="showScreen('home')">กลับ</button>
         </section>
     </main>
 
     <nav class="nav">
-        <div onclick="openScreen('home')">🏠 โฮม</div>
-        <div onclick="openScreen('diary')">📔 ไดอารี่</div>
+        <div onclick="showScreen('home')">🏠 โฮม</div>
+        <div onclick="showScreen('diary')">📔 ไดอารี่</div>
     </nav>
 </div>
 
 <script>
-    function openScreen(id) {
+    let state = { hp: 45, en: 20, coins: 12450 };
+
+    function showScreen(id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
+    }
+
+    function updateUI() {
+        document.getElementById('hpFill').style.width = (state.hp/50)*100 + "%";
+        document.getElementById('enFill').style.width = (state.en/50)*100 + "%";
+        document.getElementById('coins').innerText = state.coins;
+    }
+
+    function feedAction() {
+        state.hp = Math.min(50, state.hp + 5);
+        state.en = Math.min(50, state.en + 5);
+        document.getElementById('blob').innerText = "😋";
+        setTimeout(() => document.getElementById('blob').innerText = "💧", 1000);
+        updateUI();
+    }
+
+    function sleepAction() {
+        state.en = Math.min(50, state.en + 15);
+        document.getElementById('blob').innerText = "😴";
+        setTimeout(() => document.getElementById('blob').innerText = "💧", 2000);
+        updateUI();
+    }
+
+    function saveNote() {
+        alert("บันทึกไดอารี่สำเร็จ!");
+        state.coins += 20;
+        updateUI();
     }
 </script>
 
