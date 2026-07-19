@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joy Blob App</title>
+    
+    <!-- 1. ส่วนของ CSS ต้องอยู่ภายใต้แท็ก <style> -->
+    <style>
+        :root {
+          --bg-deep: #f9f5ff; 
+          --bg-app: #f5f3ff; 
+          --bg-card: #ffffff;
+          --primary: #c084fc;
+          --border-color: rgba(167, 139, 250, 0.2);
+          --font-thai: 'Sarabun', sans-serif; /* แนะนำให้เพิ่มฟอนต์ไทย */
+          --phone-width: 390px;
+          --phone-height: 812px;
+        }
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          background-color: #cbd5e1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          font-family: var(--font-thai);
+        }
+
+        /* กรอบโทรศัพท์จำลอง */
+        .phone-frame {
+          width: var(--phone-width);
+          height: var(--phone-height);
+          background-color: var(--bg-app);
+          border: 12px solid #2e2a72;
+          border-radius: 44px;
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ส่วนหัวแอป */
+        .app-header {
+          background: var(--bg-card);
+          padding: 34px 14px 10px 14px;
+          border-bottom: 1px solid var(--border-color);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        /* พื้นที่เนื้อหาหลัก */
+        .app-main-content {
+          flex-grow: 1;
+          overflow-y: auto;
+          position: relative;
+          padding: 16px;
+        }
+
+        /* แถบเมนูด้านล่าง */
+        .app-bottom-nav {
+          height: 82px;
+          background: #ffffff;
+          border-top: 1px solid var(--border-color);
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          padding: 0 10px;
+        }
+
+        .nav-tab {
+          background: none;
+          border: none;
+          color: #94a3b8;
+          font-size: 12px;
+          cursor: pointer;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .nav-tab.active {
+          color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 2. โครงสร้าง HTML -->
+    <div class="phone-frame">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="profile-info">
+                <strong>Joy Blob</strong>
+                <span style="font-size: 12px; color: gray;">Lv. 1</span>
+            </div>
+            <div class="stats">
+                <span>🪙 150</span> | <span>💎 10</span>
+            </div>
+        </header>
+
+        <!-- Main Content (แสดงทีละหน้าจอ) -->
+        <main class="app-main-content" id="main-container">
+            <!-- ตัวอย่างหน้า Home -->
+            <section class="screen active" id="screen-home">
+                <div style="text-align: center; margin-top: 50px;">
+                    <!-- ใส่ SVG ตัวละครที่สมบูรณ์ตรงนี้ -->
+                    <div style="font-size: 80px;">💧</div>
+                    <h2 style="margin-top: 20px;">สวัสดี! ฉันคือ Joy Blob</h2>
+                    <p style="color: gray; margin-top: 10px;">พร้อมจะดูแลจิตใจไปด้วยกันหรือยัง?</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="app-bottom-nav">
+            <button class="nav-tab active" onclick="nav('screen-home')">
+                <span style="font-size: 20px;">🏠</span>
+                <span>หน้าแรก</span>
+            </button>
+            <button class="nav-tab" onclick="nav('screen-diary')">
+                <span style="font-size: 20px;">📔</span>
+                <span>ไดอารี่</span>
+            </button>
+            <button class="nav-tab" onclick="nav('screen-games')">
+                <span style="font-size: 20px;">🎮</span>
+                <span>มินิเกม</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- 3. ส่วนของ JavaScript ต้องอยู่ล่างสุด -->
+    <script>
+        // ฟังก์ชันพื้นฐานสำหรับเปลี่ยนหน้าจอ
+        function nav(screenId) {
+            console.log("กำลังเปลี่ยนไปหน้า: " + screenId);
+            // โลจิกการซ่อน/แสดงหน้าจอต่างๆ จะอยู่ตรงนี้
+            
+            // อัปเดตสถานะปุ่มเมนู
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        // สถานะของเกม (State)
+        let state = {
+            petName: "Joy Blob",
+            level: 1,
+            coins: 150,
+            gems: 10,
+            hp: 50,
+            energy: 50
+        };
+
+        // เริ่มต้นการทำงาน
+        window.addEventListener("DOMContentLoaded", () => {
+            console.log("Joy Blob App Initialized!");
+        });
+    </script>
+</body>
+</html>
