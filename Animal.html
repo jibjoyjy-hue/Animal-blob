@@ -2,115 +2,41 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joy Blob App</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Kanit', sans-serif; 
-            background: #f1f5f9; 
-            display: flex; justify-content: center; align-items: center; 
-            min-height: 100vh; margin: 0; 
-        }
-
-        /* ตัวเครื่องแอป: ปรับให้เหมือน iPhone */
-        .phone { 
-            width: 375px; height: 812px; 
-            background: #ffffff; 
-            border-radius: 50px; 
-            border: 8px solid #1e293b; 
-            overflow: hidden; 
-            display: flex; flex-direction: column; 
-            position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        /* ส่วนบนของจอ (Status Bar จำลอง) */
-        .notch { width: 150px; height: 25px; background: #1e293b; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; align-self: center; margin-bottom: 20px; }
-
-        /* ส่วนหัวแอป */
-        .header { padding: 0 30px; display: flex; justify-content: space-between; align-items: center; }
-        .currency-box { background: #f8fafc; padding: 5px 15px; border-radius: 20px; border: 1px solid #e2e8f0; font-weight: 600; }
-
-        /* แถบพลัง */
-        .stats-area { padding: 20px 30px; }
-        .bar-wrapper { margin-bottom: 15px; }
-        .bar { height: 16px; background: #e2e8f0; border-radius: 8px; overflow: hidden; margin-top: 5px; }
-        .fill { height: 100%; border-radius: 8px; transition: width 0.5s ease; }
-
-        /* พื้นที่ตัวละคร */
-        .game-screen { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #f0f9ff 0%, #e0f2fe 100%); }
-        .character-img { width: 180px; height: 180px; background: white; border-radius: 50%; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 80px; margin-bottom: 30px; }
-        .speech { background: white; padding: 15px 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); font-weight: 400; }
-
-        /* ปุ่ม Action */
-        .action-bar { padding: 20px; display: flex; gap: 10px; justify-content: center; }
-        .btn { padding: 12px 25px; border-radius: 25px; border: none; background: #3b82f6; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn:hover { background: #2563eb; transform: translateY(-2px); }
-
-        /* แถบเมนูข้างล่าง */
-        .nav-bar { display: flex; justify-content: space-around; padding: 25px; background: white; border-top: 1px solid #f1f5f9; }
-        .nav-item { font-size: 10px; color: #64748b; text-align: center; }
+        body { font-family: sans-serif; background: #e2e8f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .phone { width: 375px; height: 700px; background: white; border-radius: 40px; border: 8px solid #333; overflow: hidden; display: flex; flex-direction: column; }
+        .header { padding: 40px 20px 20px; text-align: center; font-weight: bold; font-size: 20px; }
+        .content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .emoji { font-size: 100px; }
+        .controls { padding: 20px; display: flex; gap: 10px; }
+        button { padding: 15px 25px; border-radius: 20px; border: none; background: #3b82f6; color: white; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="phone">
-    <div class="notch"></div>
-    
-    <div class="header">
-        <div style="font-size: 1.2rem; font-weight: 600;">Joy Blob</div>
-        <div class="currency-box">💰 12,450</div>
-    </div>
-
-    <div class="stats-area">
-        <div class="bar-wrapper">
-            <div style="font-size: 12px;">HP</div>
-            <div class="bar"><div id="hpFill" class="fill" style="width: 90%; background: #fb7185;"></div></div>
+    <div class="header">Joy Blob</div>
+    <div class="content">
+        <div id="blob" class="emoji">💧</div>
+        <p id="text">วันนี้ไปพักผ่อนกันนะ!</p>
+        <div class="controls">
+            <button onclick="feed()">ให้อาหาร</button>
+            <button onclick="sleep()">นอนหลับ</button>
         </div>
-        <div class="bar-wrapper">
-            <div style="font-size: 12px;">Energy</div>
-            <div class="bar"><div id="enFill" class="fill" style="width: 80%; background: #fbbf24;"></div></div>
-        </div>
-    </div>
-
-    <div class="game-screen">
-        <div id="blob" class="character-img">💧</div>
-        <div class="speech" id="bubble">วันนี้ไปพักผ่อนกันนะ!</div>
-    </div>
-
-    <div class="action-bar">
-        <button class="btn" onclick="feedAction()">ให้อาหาร</button>
-        <button class="btn" onclick="sleepAction()">นอนหลับ</button>
-    </div>
-
-    <div class="nav-bar">
-        <div class="nav-item">🏠<br>บ้าน</div>
-        <div class="nav-item">🎒<br>กระเป๋า</div>
-        <div class="nav-item">🎁<br>ของขวัญ</div>
-        <div class="nav-item">⚙️<br>ตั้งค่า</div>
     </div>
 </div>
 
 <script>
-    let state = { hp: 45, en: 40 };
-    function feedAction() {
-        state.hp = Math.min(50, state.hp + 5);
-        document.getElementById('bubble').innerText = "ง่ำๆ อร่อยจัง! 💖";
+    function feed() {
+        document.getElementById('text').innerText = "ง่ำๆ อร่อยจัง! 💖";
         document.getElementById('blob').innerText = "😋";
-        updateUI();
-        setTimeout(() => { document.getElementById('blob').innerText = "💧"; document.getElementById('bubble').innerText = "อิ่มจังเลย~"; }, 1500);
+        setTimeout(() => { document.getElementById('blob').innerText = "💧"; document.getElementById('text').innerText = "วันนี้ไปพักผ่อนกันนะ!"; }, 1500);
     }
-    function sleepAction() {
-        state.en = Math.min(50, state.en + 10);
-        document.getElementById('bubble').innerText = "ฝันดีนะคะ... 💤";
+    function sleep() {
+        document.getElementById('text').innerText = "ฝันดีนะคะ... 💤";
         document.getElementById('blob').innerText = "😴";
-        updateUI();
-        setTimeout(() => { document.getElementById('blob').innerText = "💧"; document.getElementById('bubble').innerText = "สดชื่นจัง!"; }, 2000);
-    }
-    function updateUI() {
-        document.getElementById('hpFill').style.width = (state.hp/50)*100 + "%";
-        document.getElementById('enFill').style.width = (state.en/50)*100 + "%";
+        setTimeout(() => { document.getElementById('blob').innerText = "💧"; document.getElementById('text').innerText = "วันนี้ไปพักผ่อนกันนะ!"; }, 1500);
     }
 </script>
 
