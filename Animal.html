@@ -38,39 +38,44 @@
         .page-title { background: #fff; padding: 10px 20px; border-radius: 20px; font-weight: bold; color: #2979ff; margin-bottom: 20px; width: 100%; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 
         /* ================= 1. Home Tab ================= */
-        .speech-bubble { background: #fff; padding: 12px 20px; border-radius: 20px; font-size: 14px; margin-top: 20px; margin-bottom: 30px; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.05); animation: float 3s ease-in-out infinite; text-align: center; max-width: 80%; }
+        .speech-bubble { background: #fff; padding: 12px 20px; border-radius: 20px; font-size: 14px; margin-top: 10px; margin-bottom: 30px; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.05); animation: float 3s ease-in-out infinite; text-align: center; max-width: 80%; }
         .speech-bubble::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: #fff transparent transparent transparent; }
-        .pet-character { width: 180px; height: 180px; background: radial-gradient(circle, #82b1ff 0%, #2979ff 100%); border-radius: 50%; box-shadow: 0 10px 20px rgba(41, 121, 255, 0.4); position: relative; animation: bounce 2s ease-in-out infinite; display: flex; justify-content: center; align-items: center; font-size: 80px; cursor: pointer; transition: background 0.5s; }
-        /* Default Blob face */
+        .pet-character { width: 180px; height: 180px; background: radial-gradient(circle, #82b1ff 0%, #2979ff 100%); border-radius: 50%; box-shadow: 0 10px 20px rgba(0,0,0,0.15); position: relative; animation: bounce 2s ease-in-out infinite; display: flex; justify-content: center; align-items: center; font-size: 80px; cursor: pointer; transition: background 0.5s; }
         .pet-eyes { display: flex; gap: 30px; margin-top: -20px; position: absolute; }
         .eye { width: 25px; height: 35px; background: #000; border-radius: 50%; position: relative; }
         .eye::after { content: ''; position: absolute; top: 5px; right: 5px; width: 10px; height: 10px; background: #fff; border-radius: 50%; }
         .pet-mouth { position: absolute; bottom: 40px; width: 30px; height: 15px; border-bottom: 4px solid #000; border-radius: 0 0 50px 50px; }
 
         /* ================= 2. Pet Selection Tab ================= */
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; margin-bottom: 20px; }
-        .pet-card { background: #fff; border-radius: 15px; padding: 15px 5px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
+        .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; margin-bottom: 20px; }
+        .pet-card { background: #fff; border-radius: 15px; padding: 10px 5px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
         .pet-card.selected { border: 2px solid #2979ff; background: #e3f2fd; transform: scale(1.05); }
-        .pet-card .emoji { font-size: 40px; margin-bottom: 5px; display: block; }
-        .pet-card p { font-size: 12px; color: #555; font-weight: bold; }
-        .btn-confirm { background: #2979ff; color: white; border: none; padding: 12px 30px; border-radius: 20px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(41, 121, 255, 0.3); transition: 0.2s; }
+        .pet-card .emoji { font-size: 35px; margin-bottom: 5px; display: block; }
+        .pet-card p { font-size: 11px; color: #555; font-weight: bold; }
+        .btn-confirm { background: #2979ff; color: white; border: none; padding: 12px 30px; border-radius: 20px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(41, 121, 255, 0.3); transition: 0.2s; margin-top: 10px; }
         .btn-confirm:active { transform: scale(0.95); }
+        .btn-confirm:hover { background: #1565c0; }
 
         /* ================= 3. Diary Tab ================= */
-        .diary-card { background: #fff; padding: 20px; border-radius: 20px; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #333; margin-bottom: 15px; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; font-size: 12px; color: #777; }
-        .cal-day { padding: 5px 0; }
-        .cal-date { padding: 8px 0; border-radius: 50%; cursor: pointer; }
+        .diary-card { background: #fff; padding: 15px; border-radius: 20px; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #333; margin-bottom: 10px; font-size: 14px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; font-size: 11px; color: #777; }
+        .cal-day { padding: 5px 0; font-weight: bold; color: #555; }
+        .cal-date { padding: 6px 0; border-radius: 50%; cursor: pointer; transition: 0.2s; }
+        .cal-date:hover { background: #f0f0f0; }
         .cal-date.active { background: #2979ff; color: white; font-weight: bold; }
         
-        .mood-section { text-align: center; margin-top: 10px; }
-        .mood-section p { color: #555; margin-bottom: 15px; font-weight: bold; }
-        .mood-grid { display: flex; justify-content: space-around; }
-        .mood-btn { font-size: 35px; cursor: pointer; transition: 0.2s; filter: grayscale(100%); opacity: 0.5; }
+        .mood-section { text-align: center; margin-top: 5px; }
+        .mood-section p { color: #555; margin-bottom: 10px; font-weight: bold; font-size: 13px; }
+        .mood-grid { display: flex; justify-content: space-around; margin-bottom: 15px; }
+        .mood-btn { font-size: 30px; cursor: pointer; transition: 0.2s; filter: grayscale(100%); opacity: 0.5; }
         .mood-btn.active, .mood-btn:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.2); }
-
+        
+        .diary-input { width: 100%; height: 80px; border-radius: 12px; border: 1px solid #e0e0e0; padding: 10px; font-size: 13px; resize: none; background: #f9f9f9; outline: none; transition: 0.3s; margin-bottom: 10px; }
+        .diary-input:focus { border-color: #2979ff; background: #fff; }
+        
         /* ================= 4. Shop Tab ================= */
+        .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; }
         .shop-item { background: #fff; border-radius: 15px; padding: 15px 5px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; }
         .shop-item:active { transform: scale(0.95); }
         .shop-item i { font-size: 35px; margin-bottom: 10px; }
@@ -85,10 +90,10 @@
         .nav-item.active i { background: #e3f2fd; color: #2979ff; }
 
         /* ================= Toast Notification ================= */
-        .toast { position: absolute; top: 120px; left: 50%; transform: translateX(-50%); background: rgba(50, 50, 50, 0.9); color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100; }
+        .toast { position: absolute; top: 120px; left: 50%; transform: translateX(-50%); background: rgba(50, 50, 50, 0.9); color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         
         /* Animations */
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @media (min-width: 415px) { body { background-color: #333; } .mobile-container { border-radius: 30px; border: 8px solid #222; } }
     </style>
@@ -97,7 +102,7 @@
 
     <div class="mobile-container">
         <!-- Toast Notification -->
-        <div id="toast" class="toast">บันทึกสำเร็จ!</div>
+        <div id="toast" class="toast">สำเร็จ!</div>
         
         <!-- Header: Status Bar -->
         <header class="top-bar">
@@ -128,27 +133,47 @@
             </div>
         </main>
 
-        <!-- 2. Pet Selection Tab -->
+        <!-- 2. Pet Selection Tab (12 Pets) -->
         <main id="tab-pet" class="tab-content">
             <div class="page-title">เลือกสัตว์เลี้ยง</div>
             <div class="grid-container">
-                <div class="pet-card selected" onclick="selectPet(this, 'blob', 'radial-gradient(circle, #82b1ff 0%, #2979ff 100%)', '')">
+                <div class="pet-card selected" onclick="selectPet(this, 'radial-gradient(circle, #82b1ff 0%, #2979ff 100%)', '')">
                     <span class="emoji">💧</span><p>Blob</p>
                 </div>
-                <div class="pet-card" onclick="selectPet(this, 'bunny', 'radial-gradient(circle, #ffb6c1 0%, #ff69b4 100%)', '🐰')">
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffb6c1 0%, #ff69b4 100%)', '🐰')">
                     <span class="emoji">🐰</span><p>Bunny</p>
                 </div>
-                <div class="pet-card" onclick="selectPet(this, 'bear', 'radial-gradient(circle, #d2b48c 0%, #8b4513 100%)', '🐻')">
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #d2b48c 0%, #8b4513 100%)', '🐻')">
                     <span class="emoji">🐻</span><p>Bear</p>
                 </div>
-                <div class="pet-card" onclick="selectPet(this, 'cat', 'radial-gradient(circle, #ffdead 0%, #ffa500 100%)', '🐱')">
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffdead 0%, #ffa500 100%)', '🐱')">
                     <span class="emoji">🐱</span><p>Cat</p>
                 </div>
-                <div class="pet-card" onclick="selectPet(this, 'dog', 'radial-gradient(circle, #f5f5dc 0%, #deb887 100%)', '🐶')">
+                
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #f5f5dc 0%, #deb887 100%)', '🐶')">
                     <span class="emoji">🐶</span><p>Puppy</p>
                 </div>
-                <div class="pet-card" onclick="selectPet(this, 'panda', 'radial-gradient(circle, #ffffff 0%, #cccccc 100%)', '🐼')">
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #b0e0e6 0%, #4682b4 100%)', '🐧')">
+                    <span class="emoji">🐧</span><p>Penguin</p>
+                </div>
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffffff 0%, #cccccc 100%)', '🐼')">
                     <span class="emoji">🐼</span><p>Panda</p>
+                </div>
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffb732 0%, #ff7f50 100%)', '🦊')">
+                    <span class="emoji">🦊</span><p>Fox</p>
+                </div>
+
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffffe0 0%, #ffd700 100%)', '🐥')">
+                    <span class="emoji">🐥</span><p>Chick</p>
+                </div>
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #deb887 0%, #a0522d 100%)', '🦦')">
+                    <span class="emoji">🦦</span><p>Otter</p>
+                </div>
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #ffe4b5 0%, #d2b48c 100%)', '🐹')">
+                    <span class="emoji">🐹</span><p>Hamster</p>
+                </div>
+                <div class="pet-card" onclick="selectPet(this, 'radial-gradient(circle, #98fb98 0%, #3cb371 100%)', '🦕')">
+                    <span class="emoji">🦕</span><p>Dino</p>
                 </div>
             </div>
             <button class="btn-confirm" onclick="confirmPet()">ยืนยันเลือกน้อง</button>
@@ -167,62 +192,46 @@
                 </div>
                 <div class="calendar-grid">
                     <div class="cal-day">อา</div><div class="cal-day">จ</div><div class="cal-day">อ</div><div class="cal-day">พ</div><div class="cal-day">พฤ</div><div class="cal-day">ศ</div><div class="cal-day">ส</div>
-                    <!-- Sample Dates -->
                     <div></div><div></div><div class="cal-date">1</div><div class="cal-date">2</div><div class="cal-date">3</div><div class="cal-date">4</div>
                     <div class="cal-date">5</div><div class="cal-date">6</div><div class="cal-date">7</div><div class="cal-date">8</div><div class="cal-date">9</div><div class="cal-date">10</div><div class="cal-date">11</div>
                     <div class="cal-date">12</div><div class="cal-date">13</div><div class="cal-date">14</div><div class="cal-date active">15</div><div class="cal-date">16</div><div class="cal-date">17</div><div class="cal-date">18</div>
                 </div>
             </div>
 
-            <!-- Mood Module -->
+            <!-- Mood & Typing Module -->
             <div class="diary-card mood-section">
                 <p>วันนี้คุณรู้สึกอย่างไรบ้าง?</p>
                 <div class="mood-grid">
-                    <span class="mood-btn" onclick="selectMood(this, 'ดีใจจังเลย! 😊')">😊</span>
-                    <span class="mood-btn" onclick="selectMood(this, 'โอ๋ๆ ไม่เศร้านะ 😢')">😢</span>
-                    <span class="mood-btn" onclick="selectMood(this, 'ใจเย็นๆ น้าา 😡')">😡</span>
-                    <span class="mood-btn" onclick="selectMood(this, 'พักผ่อนเยอะๆ นะ 😴')">😴</span>
+                    <span class="mood-btn" onclick="selectMood(this)">😊</span>
+                    <span class="mood-btn" onclick="selectMood(this)">😢</span>
+                    <span class="mood-btn" onclick="selectMood(this)">😡</span>
+                    <span class="mood-btn" onclick="selectMood(this)">😴</span>
                 </div>
+                
+                <textarea id="diary-text" class="diary-input" placeholder="พิมพ์ระบายความรู้สึกของคุณที่นี่..."></textarea>
+                <button class="btn-confirm" style="margin-top: 0;" onclick="saveDiary()">ปล่อยไป ✨ (บันทึก)</button>
             </div>
         </main>
 
         <!-- 4. Shop Tab -->
         <main id="tab-shop" class="tab-content">
             <div class="page-title">ร้านค้า (Shop)</div>
-            <div class="grid-container">
-                <!-- Items -->
-                <div class="shop-item" onclick="buyItem('เบอร์เกอร์', 350)">
-                    <i class="fas fa-hamburger" style="color: #ff9800;"></i><p>เบอร์เกอร์</p><div class="price-tag">350 C</div>
-                </div>
-                <div class="shop-item" onclick="buyItem('แอปเปิ้ล', 120)">
-                    <i class="fas fa-apple-alt" style="color: #f44336;"></i><p>แอปเปิ้ล</p><div class="price-tag">120 C</div>
-                </div>
-                <div class="shop-item" onclick="buyItem('ไอศกรีม', 200)">
-                    <i class="fas fa-ice-cream" style="color: #e91e63;"></i><p>ไอศกรีม</p><div class="price-tag">200 C</div>
-                </div>
-                <div class="shop-item" onclick="buyItem('ข้าวกล่อง', 500)">
-                    <i class="fas fa-box-open" style="color: #8bc34a;"></i><p>ข้าวกล่อง</p><div class="price-tag">500 C</div>
-                </div>
-                <div class="shop-item" onclick="buyItem('น้ำส้ม', 150)">
-                    <i class="fas fa-glass-whiskey" style="color: #ffc107;"></i><p>น้ำส้ม</p><div class="price-tag">150 C</div>
-                </div>
+            <div class="shop-grid">
+                <div class="shop-item" onclick="buyItem('เบอร์เกอร์', 350)"><i class="fas fa-hamburger" style="color: #ff9800;"></i><p>เบอร์เกอร์</p><div class="price-tag">350 C</div></div>
+                <div class="shop-item" onclick="buyItem('แอปเปิ้ล', 120)"><i class="fas fa-apple-alt" style="color: #f44336;"></i><p>แอปเปิ้ล</p><div class="price-tag">120 C</div></div>
+                <div class="shop-item" onclick="buyItem('ไอศกรีม', 200)"><i class="fas fa-ice-cream" style="color: #e91e63;"></i><p>ไอศกรีม</p><div class="price-tag">200 C</div></div>
+                <div class="shop-item" onclick="buyItem('ข้าวกล่อง', 500)"><i class="fas fa-box-open" style="color: #8bc34a;"></i><p>ข้าวกล่อง</p><div class="price-tag">500 C</div></div>
+                <div class="shop-item" onclick="buyItem('น้ำส้ม', 150)"><i class="fas fa-glass-whiskey" style="color: #ffc107;"></i><p>น้ำส้ม</p><div class="price-tag">150 C</div></div>
+                <div class="shop-item" onclick="buyItem('ยาเร่งโต', 800)"><i class="fas fa-magic" style="color: #00bcd4;"></i><p>ยาเร่งโต</p><div class="price-tag">800 C</div></div>
             </div>
         </main>
 
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
-            <div class="nav-item active" onclick="switchTab('tab-home', this)">
-                <i class="fas fa-home"></i><span>โฮม</span>
-            </div>
-            <div class="nav-item" onclick="switchTab('tab-pet', this)">
-                <i class="fas fa-paw"></i><span>สัตว์เลี้ยง</span>
-            </div>
-            <div class="nav-item" onclick="switchTab('tab-diary', this)">
-                <i class="fas fa-book"></i><span>ไดอารี่</span>
-            </div>
-            <div class="nav-item" onclick="switchTab('tab-shop', this)">
-                <i class="fas fa-store"></i><span>ร้านค้า</span>
-            </div>
+            <div class="nav-item active" onclick="switchTab('tab-home', this)"><i class="fas fa-home"></i><span>โฮม</span></div>
+            <div class="nav-item" onclick="switchTab('tab-pet', this)"><i class="fas fa-paw"></i><span>สัตว์เลี้ยง</span></div>
+            <div class="nav-item" onclick="switchTab('tab-diary', this)"><i class="fas fa-book"></i><span>ไดอารี่</span></div>
+            <div class="nav-item" onclick="switchTab('tab-shop', this)"><i class="fas fa-store"></i><span>ร้านค้า</span></div>
         </nav>
 
     </div>
@@ -241,7 +250,7 @@
             const toast = document.getElementById('toast');
             toast.innerText = message;
             toast.style.opacity = '1';
-            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+            setTimeout(() => { toast.style.opacity = '0'; }, 2500);
         }
 
         // Tab Switching
@@ -266,19 +275,15 @@
             setTimeout(() => { pet.style.animation = 'bounce 2s ease-in-out infinite'; }, 50);
         }
 
-        // --- Pet Selection Logic ---
-        function selectPet(element, type, bgGradient, emoji) {
-            // Remove selection from all
+        // --- Pet Selection Logic (12 Pets) ---
+        function selectPet(element, bgGradient, emoji) {
             document.querySelectorAll('.pet-card').forEach(card => card.classList.remove('selected'));
-            // Add selection to clicked
             element.classList.add('selected');
-            // Store temp selection
             tempPetBg = bgGradient;
             tempPetEmoji = emoji;
         }
 
         function confirmPet() {
-            // Apply temp selection to actual pet
             currentPetBg = tempPetBg;
             currentPetEmoji = tempPetEmoji;
             
@@ -286,10 +291,8 @@
             const blobFace = document.getElementById('blob-face');
             const blobMouth = document.getElementById('blob-mouth');
 
-            // Change Background
             mainPet.style.background = currentPetBg;
 
-            // Change Face (If Blob, show CSS face. If other, show Emoji)
             if (currentPetEmoji === '') {
                 blobFace.style.display = 'flex';
                 blobMouth.style.display = 'block';
@@ -302,21 +305,39 @@
                 mainPet.innerText = currentPetEmoji;
             }
 
-            showToast('อัปเดตสัตว์เลี้ยงสำเร็จ!');
+            showToast('อัปเดตสัตว์เลี้ยงสำเร็จ! 🎉');
             
             // Auto switch to Home tab
             const homeNav = document.querySelector('.nav-item:nth-child(1)');
             switchTab('tab-home', homeNav);
+            document.getElementById('pet-speech').innerText = "พร้อมออกเดินทางแล้ว! ✨";
         }
 
         // --- Diary Logic ---
-        function selectMood(element, speechText) {
+        function selectMood(element) {
             document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
+        }
+
+        function saveDiary() {
+            const textInput = document.getElementById('diary-text');
+            const hasMood = document.querySelector('.mood-btn.active');
             
-            // Update Pet Speech with mood reaction
-            document.getElementById('pet-speech').innerText = speechText;
-            showToast('บันทึกอารมณ์วันนี้แล้ว!');
+            if (textInput.value.trim() === '' && !hasMood) {
+                showToast('กรุณาเลือกอารมณ์หรือพิมพ์ข้อความก่อนนะคะ ✏️');
+                return;
+            }
+
+            showToast('บันทึกไดอารี่เรียบร้อย! ความลับปลอดภัย 🔒');
+            
+            // สุ่มข้อความตอบกลับในหน้า Home ตามการบันทึก
+            document.getElementById('pet-speech').innerText = "เราจดบันทึกของวันนี้ไว้ให้แล้วนะ! เก่งมาก 💙";
+            
+            // ล้างช่องแชทหลังบันทึกสำเร็จ (เพื่อให้พร้อมบันทึกใหม่)
+            setTimeout(() => {
+                textInput.value = '';
+                if(hasMood) hasMood.classList.remove('active');
+            }, 1000);
         }
 
         // --- Shop Logic ---
@@ -325,15 +346,14 @@
                 coins -= price;
                 document.getElementById('coin-val').innerText = coins.toLocaleString();
                 
-                // Visual feedback on coin UI
                 const coinUi = document.getElementById('coin-ui');
                 coinUi.style.background = '#e8f5e9';
                 setTimeout(() => { coinUi.style.background = '#fff'; }, 300);
 
-                showToast(`ซื้อ ${itemName} สำเร็จ!`);
-                document.getElementById('pet-speech').innerText = `เย่! ได้กิน ${itemName} แล้ว อร่อยจัง 😋`;
+                showToast(`ซื้อ ${itemName} สำเร็จ! 🛍️`);
+                document.getElementById('pet-speech').innerText = `เย่! ได้ ${itemName} แล้ว ขอบคุณน้าา 😋`;
             } else {
-                showToast('เหรียญไม่พอจ้า 😢');
+                showToast('เหรียญไม่พอจ้า 😢 ทำภารกิจเพิ่มนะ');
             }
         }
     </script>
