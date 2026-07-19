@@ -2,43 +2,72 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>Joy Blob App</title>
+    <title>Joy Blob - Home</title>
     <style>
-        body { font-family: sans-serif; background: #e2e8f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .phone { width: 375px; height: 700px; background: white; border-radius: 40px; border: 8px solid #333; overflow: hidden; display: flex; flex-direction: column; }
-        .header { padding: 40px 20px 20px; text-align: center; font-weight: bold; font-size: 20px; }
-        .content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .emoji { font-size: 100px; }
-        .controls { padding: 20px; display: flex; gap: 10px; }
-        button { padding: 15px 25px; border-radius: 20px; border: none; background: #3b82f6; color: white; cursor: pointer; }
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap');
+        body { font-family: 'Kanit', sans-serif; background: #e2e8f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        
+        /* โครงเครื่อง */
+        .phone { width: 375px; height: 750px; background: #f8fafc; border-radius: 40px; border: 8px solid #1e293b; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+        
+        /* ส่วน Header */
+        .header { padding: 20px; display: flex; align-items: center; justify-content: space-between; }
+        .user-info { display: flex; align-items: center; gap: 10px; }
+        .avatar { width: 40px; height: 40px; background: #3b82f6; border-radius: 50%; }
+        .currency { display: flex; gap: 10px; font-weight: 600; color: #475569; }
+
+        /* แถบพลัง */
+        .stats { padding: 0 20px 20px; }
+        .bar { height: 12px; background: #cbd5e1; border-radius: 6px; margin: 5px 0; overflow: hidden; }
+        .fill { height: 100%; border-radius: 6px; }
+
+        /* ตัวละคร */
+        .main-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .blob-face { font-size: 100px; margin-bottom: 20px; }
+        .speech { background: white; padding: 10px 20px; border-radius: 20px; border: 1px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+
+        /* แถบเมนูด้านล่าง */
+        .bottom-nav { display: flex; justify-content: space-around; padding: 20px; background: white; border-top: 1px solid #e2e8f0; }
+        .nav-item { font-size: 12px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="phone">
-    <div class="header">Joy Blob</div>
-    <div class="content">
-        <div id="blob" class="emoji">💧</div>
-        <p id="text">วันนี้ไปพักผ่อนกันนะ!</p>
-        <div class="controls">
-            <button onclick="feed()">ให้อาหาร</button>
-            <button onclick="sleep()">นอนหลับ</button>
+    <!-- Header -->
+    <div class="header">
+        <div class="user-info">
+            <div class="avatar"></div>
+            <div><b>Joy Blob</b><br><small>Lv. 8</small></div>
+        </div>
+        <div class="currency">
+            <span>💰 12,450</span>
+            <span>💎 230</span>
         </div>
     </div>
-</div>
 
-<script>
-    function feed() {
-        document.getElementById('text').innerText = "ง่ำๆ อร่อยจัง! 💖";
-        document.getElementById('blob').innerText = "😋";
-        setTimeout(() => { document.getElementById('blob').innerText = "💧"; document.getElementById('text').innerText = "วันนี้ไปพักผ่อนกันนะ!"; }, 1500);
-    }
-    function sleep() {
-        document.getElementById('text').innerText = "ฝันดีนะคะ... 💤";
-        document.getElementById('blob').innerText = "😴";
-        setTimeout(() => { document.getElementById('blob').innerText = "💧"; document.getElementById('text').innerText = "วันนี้ไปพักผ่อนกันนะ!"; }, 1500);
-    }
-</script>
+    <!-- Stats -->
+    <div class="stats">
+        <small>HP 45/50</small>
+        <div class="bar"><div class="fill" style="width: 90%; background: #ef4444;"></div></div>
+        <small>Energy 42/50</small>
+        <div class="bar"><div class="fill" style="width: 84%; background: #3b82f6;"></div></div>
+    </div>
+
+    <!-- Main Character -->
+    <div class="main-area">
+        <div class="blob-face">💧</div>
+        <div class="speech">วันนี้ไปพักผ่อนกันนะ!</div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item">🏠<br>โฮม</div>
+        <div class="nav-item">🎒<br>กระเป๋า</div>
+        <div class="nav-item">🎁<br>ของขวัญ</div>
+        <div class="nav-item">📚<br>สะสม</div>
+    </div>
+</div>
 
 </body>
 </html>
