@@ -3,257 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joy Blob App - Pastel Theme</title>
+    <title>Joy Blob App - Full Integration</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-app: #e0f2fe; 
-            --bg-card: #ffffff;
             --primary-blue: #60a5fa;
-            --primary-purple: #a855f7;
             --hp-color: #fb7185;
             --energy-color: #fbbf24;
             --text-main: #334155;
             --text-muted: #94a3b8;
             --font-thai: 'Kanit', sans-serif;
-            
             --phone-width: 390px;
             --phone-height: 844px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
 
-        body {
-            background-color: #cbd5e1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: var(--font-thai);
-            color: var(--text-main);
-        }
+        body { background-color: #cbd5e1; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: var(--font-thai); }
 
         .phone-frame {
-            width: var(--phone-width);
-            height: var(--phone-height);
+            width: var(--phone-width); height: var(--phone-height);
             background: linear-gradient(180deg, #e0f2fe 0%, #f3e8ff 100%);
-            border: 12px solid #1e293b;
-            border-radius: 44px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 12px solid #1e293b; border-radius: 44px; position: relative;
+            overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
-        .phone-notch {
-            width: 140px;
-            height: 28px;
-            background-color: #1e293b;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-bottom-left-radius: 18px;
-            border-bottom-right-radius: 18px;
-            z-index: 1000;
-        }
+        .phone-notch { width: 140px; height: 28px; background-color: #1e293b; position: absolute; top: 0; left: 50%; transform: translateX(-50%); border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; z-index: 1000; }
 
-        /* ================= HEADER ================= */
-        .app-header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 40px 16px 12px 16px;
-            border-bottom: 2px solid rgba(255,255,255,0.5);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 10;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-
+        .app-header { background: rgba(255, 255, 255, 0.9); padding: 40px 16px 12px 16px; border-bottom: 2px solid rgba(255,255,255,0.5); display: flex; flex-direction: column; gap: 12px; }
         .header-top { display: flex; justify-content: space-between; align-items: center; }
         .profile-box { display: flex; align-items: center; gap: 10px; }
-        .avatar {
-            width: 44px; height: 44px;
-            background: #dbeafe; border: 2px solid #bfdbfe;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 24px;
-        }
-        .name-box { display: flex; flex-direction: column; }
+        .avatar { width: 44px; height: 44px; background: #dbeafe; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; }
         .name { font-size: 14px; font-weight: 600; color: #1e3a8a; }
         .level { font-size: 12px; font-weight: 700; color: var(--primary-blue); }
 
-        .currency-box { display: flex; gap: 8px; }
-        .currency-pill {
-            background: #f8fafc; border: 1px solid #e2e8f0;
-            border-radius: 20px; padding: 4px 8px;
-            font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px;
-        }
-        .add-btn {
-            background: var(--primary-blue); color: white;
-            width: 16px; height: 16px; border-radius: 50%;
-            display: inline-flex; justify-content: center; align-items: center;
-            font-size: 14px; font-weight: bold; cursor: pointer; margin-left: 4px; line-height: 1;
-        }
-
-        .header-bottom { display: flex; gap: 10px; }
-        .stat-bar-wrapper {
-            flex: 1; display: flex; align-items: center;
-            background: #f1f5f9; border-radius: 10px; height: 20px;
-            position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);
-        }
+        .stat-bar-wrapper { flex: 1; display: flex; align-items: center; background: #f1f5f9; border-radius: 10px; height: 20px; position: relative; overflow: hidden; }
         .stat-bar-fill { height: 100%; border-radius: 10px; transition: width 0.4s ease; }
         .hp-fill { background: linear-gradient(90deg, #f43f5e, #fb7185); }
         .energy-fill { background: linear-gradient(90deg, #eab308, #fcd34d); }
-        .stat-text {
-            position: absolute; width: 100%; text-align: center;
-            font-size: 10px; font-weight: 700; color: #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.4); z-index: 2;
-        }
+        .stat-text { position: absolute; width: 100%; text-align: center; font-size: 10px; font-weight: 700; color: #fff; z-index: 2; }
 
-        /* ================= MAIN CONTENT ================= */
-        .main-content {
-            flex: 1; position: relative; overflow-y: auto; padding-bottom: 90px;
-        }
-        .screen {
-            display: none; padding: 20px; animation: fadeIn 0.3s ease;
-            height: 100%; flex-direction: column;
-        }
+        .main-content { flex: 1; overflow-y: auto; padding-bottom: 90px; }
+        .screen { display: none; padding: 20px; flex-direction: column; height: 100%; }
         .screen.active { display: flex; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
 
-        /* --- HOME SCREEN --- */
-        .home-container {
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: space-between; height: 100%;
-        }
-        .speech-bubble {
-            background: white; padding: 12px 20px; border-radius: 20px;
-            font-size: 14px; font-weight: 500; color: var(--primary-blue);
-            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.2); position: relative;
-            margin-top: 20px; text-align: center; animation: float 3s ease-in-out infinite;
-        }
-        .speech-bubble::after {
-            content: ''; position: absolute; bottom: -10px; left: 50%;
-            transform: translateX(-50%); border-width: 10px 10px 0;
-            border-style: solid; border-color: white transparent; display: block; width: 0;
-        }
-        .blob-character {
-            font-size: 140px; margin: 40px 0;
-            filter: drop-shadow(0 15px 15px rgba(96, 165, 250, 0.4));
-            animation: float 4s ease-in-out infinite alternate;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-10px); }
-        }
+        .blob-character { font-size: 140px; margin: 40px 0; text-align: center; animation: float 4s ease-in-out infinite alternate; }
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-10px); } }
 
-        .home-action-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%;
-            background: rgba(255, 255, 255, 0.6); padding: 20px 15px;
-            border-radius: 24px; box-shadow: 0 8px 32px rgba(30, 58, 138, 0.05);
-        }
-        .grid-btn {
-            background: white; border: 2px solid transparent; border-radius: 16px;
-            padding: 15px 5px; display: flex; flex-direction: column;
-            align-items: center; gap: 8px; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.2s;
-        }
-        .grid-btn:hover {
-            border-color: var(--primary-blue); transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(96, 165, 250, 0.2);
-        }
-        .grid-btn .icon { font-size: 24px; }
-        .grid-btn .label { font-size: 11px; font-weight: 600; color: #475569; }
-
-        /* --- GENERIC CARD & SUB-SCREEN HEADER --- */
-        .card {
-            background: white; border-radius: 20px; padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 16px;
-        }
-        .card-title {
-            font-size: 16px; font-weight: 600; color: var(--primary-blue);
-            margin-bottom: 15px; text-align: center;
-        }
-
-        .sub-screen-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .btn-back {
-            background: rgba(255,255,255,0.8); border: 1px solid var(--primary-blue);
-            border-radius: 50%; width: 32px; height: 32px;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 16px; color: var(--primary-blue); cursor: pointer;
-        }
-        .screen-title { font-size: 16px; font-weight: 600; color: #1e3a8a; }
-
-        /* --- HOUSE MAP (Screen 4) --- */
-        .house-map {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
-        }
-        .room-card {
-            background: white; border-radius: 20px; padding: 20px; text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 2px solid transparent; cursor: pointer;
-        }
-        .room-card:hover { border-color: var(--primary-blue); transform: scale(1.02); }
-        .room-icon { font-size: 40px; margin-bottom: 10px; }
-        .room-name { font-size: 13px; font-weight: 600; color: var(--text-main); }
-
-        /* --- BEDROOM & DINING --- */
-        .room-action-info {
-            background: #f8fafc; border-radius: 12px; padding: 12px; text-align: center;
-            margin-bottom: 20px; border: 1px dashed #cbd5e1;
-            font-size: 13px; color: var(--text-muted);
-        }
-        .big-btn {
-            background: linear-gradient(135deg, var(--primary-blue), #818cf8);
-            color: white; border: none; border-radius: 16px; padding: 16px; width: 100%;
-            font-size: 16px; font-weight: bold; font-family: var(--font-thai);
-            cursor: pointer; box-shadow: 0 4px 15px rgba(96, 165, 250, 0.4);
-            margin-bottom: 10px; transition: transform 0.1s;
-        }
-        .big-btn:active { transform: scale(0.95); }
-        .btn-outline { background: white; color: var(--primary-blue); border: 2px solid var(--primary-blue); }
-
-        .food-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
-        }
-        .food-card {
-            background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px 10px;
-            text-align: center; cursor: pointer; transition: 0.2s;
-        }
-        .food-card:hover { border-color: var(--hp-color); background: #fff1f2; }
-        .food-icon { font-size: 30px; margin-bottom: 5px; }
-        .food-name { font-size: 12px; font-weight: 600; color: var(--text-main); }
-        .food-effect { font-size: 10px; color: var(--hp-color); font-weight: 500; }
-
-        /* ================= BOTTOM NAV ================= */
-        .bottom-nav {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;
-            background: white; border-top-left-radius: 24px; border-top-right-radius: 24px;
-            display: flex; justify-content: space-around; align-items: center;
-            padding: 0 10px 10px 10px; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 100;
-        }
-        .nav-item {
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
-            background: none; border: none; cursor: pointer; width: 60px;
-            color: var(--text-muted); transition: 0.2s;
-        }
-        .nav-item .icon { font-size: 22px; transition: 0.2s; }
-        .nav-item .label { font-size: 10px; font-weight: 600; }
+        .home-action-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .grid-btn { background: white; border-radius: 16px; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+        
+        .bottom-nav { position: absolute; bottom: 0; width: 100%; height: 80px; background: white; border-top-left-radius: 24px; border-top-right-radius: 24px; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; border: none; background: none; }
         .nav-item.active { color: var(--primary-blue); }
-        .nav-item.active .icon { transform: translateY(-3px); filter: drop-shadow(0 4px 6px rgba(96, 165, 250, 0.4)); }
-
     </style>
 </head>
 <body>
@@ -261,28 +64,16 @@
     <div class="phone-frame">
         <div class="phone-notch"></div>
 
-        <!-- HEADER -->
         <header class="app-header">
             <div class="header-top">
                 <div class="profile-box">
                     <div class="avatar">💧</div>
                     <div class="name-box">
-                        <span class="name">Joy Blob</span>
-                        <span class="level">Lv. 8</span>
-                    </div>
-                </div>
-                <div class="currency-box">
-                    <div class="currency-pill">
-                        <span style="color:#fbbf24">🪙</span> <span id="uiCoins">12,450</span>
-                        <div class="add-btn">+</div>
-                    </div>
-                    <div class="currency-pill">
-                        <span style="color:#60a5fa">💎</span> 230
-                        <div class="add-btn">+</div>
+                        <span class="name" id="uiPetName">Joy Blob</span>
+                        <span class="level" id="uiPetLevel">Lv. 8</span>
                     </div>
                 </div>
             </div>
-            
             <div class="header-bottom">
                 <div class="stat-bar-wrapper">
                     <div class="stat-bar-fill hp-fill" id="hpFill"></div>
@@ -296,246 +87,63 @@
         </header>
 
         <main class="main-content">
-            
-            <!-- 1. หน้าโฮม -->
             <section id="screen-home" class="screen active">
-                <div class="home-container">
-                    <div class="speech-bubble" id="mainSpeech">วันนี้ไปพักผ่อนกันนะ! 🩵</div>
-                    <div class="blob-character">💧</div>
-
-                    <div class="home-action-grid">
-                        <div class="grid-btn" onclick="alert('เปิดหน้ากระเป๋า')">
-                            <span class="icon">🎒</span>
-                            <span class="label">กระเป๋า</span>
-                        </div>
-                        <div class="grid-btn" onclick="openScreen('screen-house')">
-                            <span class="icon">🏠</span>
-                            <span class="label">บ้าน</span>
-                        </div>
-                        <div class="grid-btn" onclick="openScreen('screen-dining')">
-                            <span class="icon">🍰</span>
-                            <span class="label">ให้อาหาร</span>
-                        </div>
-                        <div class="grid-btn" onclick="alert('เปิดสมุดสะสม')">
-                            <span class="icon">📖</span>
-                            <span class="label">สะสม</span>
-                        </div>
-                    </div>
+                <div class="blob-character" id="diningBlob">💧</div>
+                <div class="home-action-grid">
+                    <div class="grid-btn" onclick="alert('กระเป๋า')"><span>🎒</span><span>กระเป๋า</span></div>
+                    <div class="grid-btn" onclick="openScreen('screen-house')"><span>🏠</span><span>บ้าน</span></div>
+                    <div class="grid-btn" onclick="openCollection()"><span>🎁</span><span>สะสม</span></div>
+                    <div class="grid-btn" onclick="openAchievement()"><span>⭐</span><span>ความสำเร็จ</span></div>
                 </div>
             </section>
 
-            <!-- 4. หน้าบ้านของน้อง (Map) -->
             <section id="screen-house" class="screen">
-                <div class="sub-screen-header">
-                    <button class="btn-back" onclick="openScreen('screen-home')">←</button>
-                    <span class="screen-title">บ้านของน้อง</span>
-                    <div style="width: 32px;"></div> <!-- Spacer -->
-                </div>
-                
-                <div class="house-map">
-                    <div class="room-card" onclick="openScreen('screen-bedroom')">
-                        <div class="room-icon">🛏️</div>
-                        <div class="room-name">ห้องนอน</div>
-                    </div>
-                    <div class="room-card" onclick="openScreen('screen-dining')">
-                        <div class="room-icon">🍽️</div>
-                        <div class="room-name">ห้องอาหาร</div>
-                    </div>
-                    <div class="room-card" onclick="alert('กำลังก่อสร้างห้องน้ำ 🛁')">
-                        <div class="room-icon">🛁</div>
-                        <div class="room-name">ห้องน้ำ</div>
-                    </div>
-                    <div class="room-card" onclick="alert('กำลังทำสวน 🌳')">
-                        <div class="room-icon">🌳</div>
-                        <div class="room-name">สวนหย่อม</div>
-                    </div>
-                </div>
+                <button onclick="openScreen('screen-home')">← ย้อนกลับ</button>
+                <div class="grid-btn" onclick="openScreen('screen-dining')"><span>🍽️</span><span>ห้องอาหาร</span></div>
             </section>
 
-            <!-- 5. ห้องนอน -->
-            <section id="screen-bedroom" class="screen">
-                <div class="sub-screen-header">
-                    <button class="btn-back" onclick="openScreen('screen-house')">←</button>
-                    <span class="screen-title">ห้องนอน</span>
-                    <div style="width: 32px;"></div>
-                </div>
-                
-                <div class="blob-character" style="font-size: 100px; margin: 20px auto; animation: none;">
-                    😴
-                </div>
-
-                <div class="room-action-info">
-                    ให้ Joy Blob พักผ่อนเพื่อฟื้นฟูพลังงาน<br>
-                    <span style="color: var(--energy-color); font-weight: bold;">⚡ พลังงาน +15</span>
-                </div>
-
-                <button class="big-btn" onclick="sleepAction()">เข้านอน 💤</button>
-                <button class="big-btn btn-outline" onclick="alert('น้องกำลังอ่านหนังสือ 📖')">อ่านหนังสือ 📖</button>
-            </section>
-
-            <!-- 6. ห้องอาหาร -->
             <section id="screen-dining" class="screen">
-                <div class="sub-screen-header">
-                    <button class="btn-back" onclick="openScreen('screen-house')">←</button>
-                    <span class="screen-title">ห้องอาหาร</span>
-                    <div style="width: 32px;"></div>
-                </div>
-                
-                <div class="blob-character" id="diningBlob" style="font-size: 100px; margin: 10px auto; animation: none;">
-                    😋
-                </div>
-
-                <h4 style="margin-bottom: 10px; color: var(--primary-blue);">เลือกอาหารให้น้อง</h4>
-                <div class="food-grid">
-                    <div class="food-card" onclick="feedAction('แซนด์วิช', 5, 5)">
-                        <div class="food-icon">🥪</div>
-                        <div class="food-name">แซนด์วิช</div>
-                        <div class="food-effect">💖+5 ⚡+5</div>
-                    </div>
-                    <div class="food-card" onclick="feedAction('เค้กสตรอว์เบอร์รี', 10, 2)">
-                        <div class="food-icon">🍰</div>
-                        <div class="food-name">เค้กหวานๆ</div>
-                        <div class="food-effect">💖+10 ⚡+2</div>
-                    </div>
-                    <div class="food-card" onclick="feedAction('คุกกี้', 3, 2)">
-                        <div class="food-icon">🍪</div>
-                        <div class="food-name">คุกกี้</div>
-                        <div class="food-effect">💖+3 ⚡+2</div>
-                    </div>
-                    <div class="food-card" onclick="feedAction('น้ำเปล่า', 2, 10)">
-                        <div class="food-icon">💧</div>
-                        <div class="food-name">น้ำเปล่าเย็นๆ</div>
-                        <div class="food-effect">💖+2 ⚡+10</div>
-                    </div>
-                </div>
+                <button onclick="openScreen('screen-house')">← ย้อนกลับ</button>
+                <div class="grid-btn" onclick="feedAction('เค้ก', 5, 5)"><span>🍰</span><span>เค้ก</span></div>
             </section>
-
-            <!-- หน้าไดอารี่ & มินิเกม (Placeholder คงไว้สำหรับ Bottom Nav) -->
-            <section id="screen-diary" class="screen">
-                <div class="card"><h2 class="card-title">หน้าไดอารี่ 📔</h2></div>
-            </section>
-            <section id="screen-games" class="screen">
-                <div class="card"><h2 class="card-title">มินิเกม 🎮</h2></div>
-            </section>
-
         </main>
 
-        <!-- BOTTOM NAV -->
         <nav class="bottom-nav">
-            <button class="nav-item active" id="nav-home" onclick="openScreen('screen-home', this)">
-                <span class="icon">🏠</span>
-                <span class="label">โฮม</span>
-            </button>
-            <button class="nav-item" id="nav-diary" onclick="openScreen('screen-diary', this)">
-                <span class="icon">📔</span>
-                <span class="label">ไดอารี่</span>
-            </button>
-            <button class="nav-item" id="nav-games" onclick="openScreen('screen-games', this)">
-                <span class="icon">🎮</span>
-                <span class="label">กิจกรรม</span>
-            </button>
-            <button class="nav-item" onclick="alert('เปิดหน้าร้านค้า')">
-                <span class="icon">🛒</span>
-                <span class="label">ร้านค้า</span>
-            </button>
-            <button class="nav-item" onclick="alert('เปิดหน้าตั้งค่า')">
-                <span class="icon">⚙️</span>
-                <span class="label">ตั้งค่า</span>
-            </button>
+            <div class="nav-item active" onclick="openScreen('screen-home', this)"><span>🏠</span><span>โฮม</span></div>
+            <div class="nav-item" onclick="openScreen('screen-games', this)"><span>🎮</span><span>เกม</span></div>
         </nav>
     </div>
 
     <script>
-        // State ของเกม
-        let state = {
-            hp: 45,
-            maxHp: 50,
-            energy: 20,
-            maxEnergy: 50,
-            coins: 12450
-        };
+        let state = { hp: 45, maxHp: 50, energy: 20, maxEnergy: 50, level: 8, exp: 0 };
 
-        // เริ่มต้นให้อัปเดต UI แถบสถานะ
-        window.onload = () => {
-            updateStatsUI();
-        };
-
-        // ฟังก์ชันสลับหน้าจอทั่วไป
-        function openScreen(screenId, navElement = null) {
-            // ซ่อนทุกหน้า
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            // แสดงหน้าเป้าหมาย
+        function openScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
-
-            // จัดการสีของ Bottom Nav (ถ้ากดจากปุ่มใน Nav)
-            if (navElement) {
-                document.querySelectorAll('.nav-item').forEach(tab => tab.classList.remove('active'));
-                navElement.classList.add('active');
-            } 
-            // ถ้าย้อนกลับมาโฮมจากปุ่ม Back ให้ไฮไลต์โฮม
-            else if (screenId === 'screen-home') {
-                document.querySelectorAll('.nav-item').forEach(tab => tab.classList.remove('active'));
-                document.getElementById('nav-home').classList.add('active');
-            }
         }
 
-        // ฟังก์ชันอัปเดตหลอดความสุขและพลังงาน
         function updateStatsUI() {
-            // จำกัดค่าไม่ให้เกิน Max
-            if (state.hp > state.maxHp) state.hp = state.maxHp;
-            if (state.energy > state.maxEnergy) state.energy = state.maxEnergy;
-
-            // คำนวณเปอร์เซ็นต์
-            const hpPercent = (state.hp / state.maxHp) * 100;
-            const energyPercent = (state.energy / state.maxEnergy) * 100;
-
-            // อัปเดตความกว้างหลอดสี
-            document.getElementById('hpFill').style.width = `${hpPercent}%`;
-            document.getElementById('energyFill').style.width = `${energyPercent}%`;
-
-            // อัปเดตตัวเลข
+            document.getElementById('hpFill').style.width = (state.hp/state.maxHp)*100 + "%";
+            document.getElementById('energyFill').style.width = (state.energy/state.maxEnergy)*100 + "%";
             document.getElementById('hpText').innerText = `${state.hp}/${state.maxHp}`;
             document.getElementById('energyText').innerText = `${state.energy}/${state.maxEnergy}`;
-            
-            // อัปเดตเหรียญ
-            document.getElementById('uiCoins').innerText = state.coins.toLocaleString();
         }
 
-        // แอคชันนอนหลับ (ห้องนอน)
-        function sleepAction() {
-            if (state.energy >= state.maxEnergy) {
-                alert("พลังงานเต็้มแล้ว น้องไม่ง่วงเลย! 👀");
-                return;
-            }
-            
-            state.energy += 15;
+        function feedAction(foodName, hp, en) {
+            state.hp = Math.min(state.maxHp, state.hp + hp);
+            state.energy = Math.min(state.maxEnergy, state.energy + en);
             updateStatsUI();
             
-            document.getElementById("mainSpeech").innerText = "ฮ้าววว... นอนหลับสบายจังเลย 💤 (+15 พลังงาน)";
-            alert("Joy Blob นอนหลับพักผ่อน ได้พลังงานเพิ่มขึ้น 15 หน่วย ⚡");
+            // ระบบเลเวลอัป
+            state.exp += 10;
+            if(state.exp >= 100) { state.level++; state.exp = 0; alert("Level Up!"); }
+            document.getElementById("uiPetLevel").innerText = `Lv. ${state.level}`;
+            
+            alert(`ป้อน ${foodName} สำเร็จ!`);
         }
 
-        // แอคชันให้อาหาร (ห้องอาหาร)
-        function feedAction(foodName, hpGain, energyGain) {
-            if (state.hp >= state.maxHp && state.energy >= state.maxEnergy) {
-                alert("น้องอิ่มมาก ทานต่อไม่ไหวแล้วจ้า! 🤰");
-                return;
-            }
-
-            state.hp += hpGain;
-            state.energy += energyGain;
-            updateStatsUI();
-
-            // เปลี่ยนอิโมจิหน้าน้องตอนกินนิดหน่อย
-            const blob = document.getElementById("diningBlob");
-            blob.innerText = "🥰";
-            setTimeout(() => { blob.innerText = "😋"; }, 2000);
-
-            document.getElementById("mainSpeech").innerText = `ง่ำๆ ${foodName} อร่อยที่สุดเลย! 🍰 (💖+${hpGain} ⚡+${energyGain})`;
-            alert(`ป้อน ${foodName} ให้น้องสำเร็จ! ความสุขเพิ่ม ${hpGain} พลังงานเพิ่ม ${energyGain}`);
-        }
+        function openCollection() { alert("เปิดสมุดสะสม"); }
+        function openAchievement() { alert("เปิดความสำเร็จ"); }
     </script>
 </body>
 </html>
