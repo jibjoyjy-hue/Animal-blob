@@ -3,369 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Joy Blob - Full Pet App</title>
-    <!-- Font Awesome -->
+    <title>Joy Blob - Interactive Pet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font Kanit -->
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Kanit', sans-serif; user-select: none; }
-        body { background-color: #d8e0e8; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        body { background-color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         ::-webkit-scrollbar { display: none; }
         
-        .mobile-container {
-            width: 100%; max-width: 414px; height: 100%; max-height: 896px;
-            background: #f7f9fc; position: relative; overflow: hidden; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column;
+        .app-container {
+            width: 100%; max-width: 400px; height: 100%; max-height: 850px;
+            background: #fff; position: relative; overflow: hidden; 
+            border-radius: 30px; display: flex; flex-direction: column;
         }
 
-        /* Top Bar */
-        .top-bar { 
-            position: absolute; top: 12px; left: 15px; right: 15px; 
-            background: rgba(255, 255, 255, 0.95); border-radius: 25px; 
-            padding: 10px 15px; z-index: 20; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        /* ================= Header Section (Top Bar) ================= */
+        .top-section { padding: 20px 20px 10px 20px; background: #fff; z-index: 10; }
+        .profile-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .avatar-circle { width: 50px; height: 50px; background: #e0f2fe; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; }
+        .user-info h2 { font-size: 16px; color: #1e293b; margin-bottom: 2px; }
+        .level-badge { background: #f97316; color: white; font-size: 10px; padding: 2px 8px; border-radius: 12px; font-weight: 600; }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .stat-pill { border: 1px solid #e2e8f0; border-radius: 20px; padding: 6px 12px; display: flex; align-items: center; font-size: 12px; font-weight: 600; color: #334155; gap: 8px; }
+        .stat-pill i { font-size: 14px; }
+
+        /* ================= Content Area (ลายตารางแบบในรูป) ================= */
+        .content-area { 
+            flex: 1; overflow-y: auto; position: relative; padding-bottom: 90px;
+            /* พื้นหลังลายตารางหมากรุกจางๆ */
+            background-color: #f8fafc;
+            background-image: linear-gradient(45deg, #f1f5f9 25%, transparent 25%, transparent 75%, #f1f5f9 75%, #f1f5f9), 
+                              linear-gradient(45deg, #f1f5f9 25%, transparent 25%, transparent 75%, #f1f5f9 75%, #f1f5f9);
+            background-size: 20px 20px; background-position: 0 0, 10px 10px;
         }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .profile-area { display: flex; align-items: center; gap: 10px; }
-        .profile-pic { width: 38px; height: 38px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid #f3e5f5; cursor: pointer; overflow: hidden; }
-        .user-details h2 { font-size: 13px; color: #333; line-height: 1.2; display: flex; align-items: center; gap: 5px; font-weight: 700; }
-        .level-badge { font-size: 9px; background: #fff; border: 1px solid #e0e0e0; color: #777; padding: 2px 6px; border-radius: 10px; font-weight: 700; }
-        .stats-row { display: flex; justify-content: space-between; gap: 5px; }
-        .stat-badge { flex: 1; background: #fff; border-radius: 10px; padding: 3px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #555; gap: 3px; border: 1px solid #f0f0f0; }
-
-        /* Tabs System */
-        .tab-content { display: none; flex: 1; overflow-y: auto; position: relative; padding-top: 115px; padding-bottom: 90px; flex-direction: column; align-items: center; background: #fdfbfd; }
-        .tab-content.active { display: flex; }
         
-        /* หัวข้อบนซ้ายที่เลื่อนลงมาพอดี */
-        .page-header { width: 90%; display: flex; align-items: center; font-size: 15px; font-weight: 700; color: #4a148c; margin-bottom: 12px; gap: 12px; margin-top: 5px; }
-        .page-header i { font-size: 15px; color: #7e57c2; cursor: pointer; }
+        .page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Page Headers */
+        .page-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; color: #4338ca; }
+        .page-title-row i { font-size: 18px; cursor: pointer; color: #6366f1; padding: 5px; }
+        .page-title-row h3 { font-size: 16px; font-weight: 700; }
+        .page-subtitle { text-align: center; font-size: 11px; color: #64748b; margin-bottom: 20px; }
+
+        /* ================= Pet Grid (ตามรูปเป๊ะๆ) ================= */
+        .pet-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: center; }
+        .pet-item { cursor: pointer; transition: transform 0.1s; }
+        .pet-item:active { transform: scale(0.95); }
+        .pet-box { width: 100%; aspect-ratio: 1; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 5px; }
+        .pet-name { font-size: 11px; font-weight: 600; color: #334155; }
         
-        .btn-purple { background: linear-gradient(135deg, #ce93d8 0%, #ab47bc 100%); color: white; border: none; padding: 10px 15px; border-radius: 18px; font-size: 13px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(171, 71, 188, 0.3); }
+        /* สีกระจกหน้าเลือกสัตว์เลี้ยง */
+        .bg-blob { background: #dbeafe; } .bg-bunny { background: #fce7f3; }
+        .bg-bear { background: #e2e8f0; } .bg-cat { background: #ffedd5; }
+        .bg-puppy { background: #ecfccb; } .bg-penguin { background: #e0e7ff; }
+        .bg-panda { background: #ffffff; border: 1px solid #e2e8f0; } .bg-fox { background: #fee2e2; }
 
-        /* 1. Home Tab */
-        #tab-home { background: linear-gradient(180deg, #fff0f5 0%, #ffe4e1 100%); }
-        .room-content { position: relative; z-index: 1; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: -10px; }
-        .speech-bubble { background: #fff; padding: 12px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; color: #6a1b9a; margin-bottom: 20px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 2px solid #f3e5f5; }
-        .pet-character img { width: 150px; height: 150px; cursor: pointer; object-fit: contain; }
+        /* ================= Room Cards ================= */
+        .room-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .room-card { background: white; border-radius: 15px; padding: 20px 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #f1f5f9; transition: 0.2s; }
+        .room-card:active { transform: scale(0.95); background: #f8fafc; }
+        .room-card .icon { font-size: 30px; margin-bottom: 10px; }
+        .room-card .title { font-size: 14px; font-weight: 700; color: #334155; }
+        
+        .btn-action { background: #6366f1; color: white; border: none; padding: 12px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; margin-top: 15px; }
 
-        /* General Card UI */
-        .app-card { width: 90%; background: #fff; border-radius: 20px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 2px solid #f3e5f5; margin-bottom: 12px; }
-
-        /* Bottom Navigation */
+        /* ================= Bottom Nav ================= */
         .bottom-nav { 
             position: absolute; bottom: 0; left: 0; right: 0; background: #fff; 
-            display: flex; overflow-x: auto; scroll-behavior: smooth;
-            padding: 10px 10px 25px 10px; border-top-left-radius: 25px; border-top-right-radius: 25px; 
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 30; gap: 8px;
+            display: flex; justify-content: space-around; padding: 15px 10px 25px 10px; 
+            border-top-left-radius: 25px; border-top-right-radius: 25px; 
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
         }
-        .nav-item { min-width: 58px; display: flex; flex-direction: column; align-items: center; color: #bdbdbd; font-size: 9px; gap: 3px; cursor: pointer; font-weight: 700; flex-shrink: 0; }
-        .nav-item i { font-size: 20px; }
-        .nav-item.active { color: #ab47bc; font-weight: 700; }
-        .nav-item.active i { transform: translateY(-3px) scale(1.1); color: #ab47bc; }
-
-        .toast { position: absolute; top: 105px; left: 50%; transform: translateX(-50%); background: #4a148c; color: white; padding: 8px 18px; border-radius: 20px; font-size: 12px; font-weight: 700; opacity: 0; transition: 0.3s; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #94a3b8; font-size: 10px; gap: 5px; cursor: pointer; font-weight: 600; width: 60px; }
+        .nav-icon { width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; transition: 0.2s; }
+        
+        /* Active State (ปุ่มม่วงแบบในรูป) */
+        .nav-item.active { color: #6366f1; }
+        .nav-item.active .nav-icon { background: #e0e7ff; color: #6366f1; }
     </style>
 </head>
 <body>
 
-    <div class="mobile-container">
-        <div id="toast" class="toast">สำเร็จ! ✨</div>
-        
-        <audio id="bg-music-nature" src="audiopapkin-forest-ambience-296528.mp3" loop></audio>
+    <div class="app-container">
+        <!-- Top Stats Bar -->
+        <div class="top-section">
+            <div class="profile-row">
+                <div class="avatar-circle">👱‍♀️</div>
+                <div class="user-info">
+                    <h2>Joy Blob</h2>
+                    <span class="level-badge">Lv. 8</span>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-pill"><i class="fa-solid fa-heart" style="color:#ef4444;"></i> 45/50</div>
+                <div class="stat-pill"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> 42/50</div>
+                <div class="stat-pill"><i class="fa-solid fa-coins" style="color:#f59e0b;"></i> 12450</div>
+                <div class="stat-pill"><i class="fa-solid fa-gem" style="color:#0ea5e9;"></i> 230</div>
+            </div>
+        </div>
 
-        <header class="top-bar">
-            <div class="header-top">
-                <div class="profile-area">
-                    <div class="profile-pic" onclick="switchTab('tab-select', 1)">
-                        <img id="profile-icon-img" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Otter.png" style="width: 28px; object-fit: contain;">
+        <!-- Content Area -->
+        <div class="content-area">
+            
+            <!-- หน้า 1: โฮม -->
+            <div id="page-home" class="page active">
+                <div style="text-align: center; margin-top: 50px;">
+                    <div style="font-size: 80px; margin-bottom: 20px;">🟦</div>
+                    <h3 style="color: #334155;">สวัสดี! วันนี้ไปห้องไหนดี?</h3>
+                    <p style="font-size: 12px; color: #64748b;">(ลองกดไปที่เมนู "บ้าน" ด้านล่างสิ)</p>
+                </div>
+            </div>
+
+            <!-- หน้า 2: เลือกสัตว์เลี้ยง (ตามภาพเป๊ะๆ) -->
+            <div id="page-pets" class="page">
+                <div class="page-title-row">
+                    <i class="fa-solid fa-arrow-left" onclick="navigate('page-home', 'nav-home')"></i>
+                    <h3>เลือกสัตว์เลี้ยง</h3>
+                    <i class="fa-solid fa-times" onclick="navigate('page-home', 'nav-home')"></i>
+                </div>
+                <p class="page-subtitle">เลือกเพื่อดูแลใจที่จะอยู่กับคุณใน Joy Blob</p>
+                
+                <div class="pet-grid">
+                    <div class="pet-item" onclick="alert('เลือก Blob แล้ว!')"><div class="pet-box bg-blob">Blob</div><div class="pet-name">Blob</div></div>
+                    <div class="pet-item" onclick="alert('เลือก Bunny แล้ว!')"><div class="pet-box bg-bunny">Bunny</div><div class="pet-name">Bunny</div></div>
+                    <div class="pet-item" onclick="alert('เลือก Bear แล้ว!')"><div class="pet-box bg-bear">Bear</div><div class="pet-name">Bear</div></div>
+                    <div class="pet-item" onclick="alert('เลือก Cat แล้ว!')"><div class="pet-box bg-cat" style="color:#f97316;">Cat</div><div class="pet-name">Cat</div></div>
+                    <div class="pet-item" onclick="alert('เลือก Puppy แล้ว!')"><div class="pet-box bg-puppy">Puppy</div><div class="pet-name">Puppy</div></div>
+                    <div class="pet-item" onclick="alert('เลือก Penguin แล้ว!')"><div class="pet-box bg-penguin">Penguin</div><div class="pet-name">Penguin</div></div>
+                    <div class="pet-item" onclick="alert('เลือก Panda แล้ว!')"><div class="pet-box bg-panda">Panda</div><div class="pet-name">Panda</div></div>
+                    <div class="pet-item" onclick="alert('เลือก Fox แล้ว!')"><div class="pet-box bg-fox" style="color:#ef4444;">Fox</div><div class="pet-name">Fox</div></div>
+                </div>
+            </div>
+
+            <!-- หน้า 3: บ้านของน้อง (ศูนย์รวมห้องต่างๆ ที่กดได้จริงๆ) -->
+            <div id="page-house" class="page">
+                <div class="page-title-row">
+                    <i class="fa-solid fa-arrow-left" onclick="navigate('page-home', 'nav-home')"></i>
+                    <h3>บ้านของน้อง</h3>
+                    <i class="fa-solid fa-times" onclick="navigate('page-home', 'nav-home')"></i>
+                </div>
+                <p class="page-subtitle">เลือกห้องเพื่อทำกิจกรรมได้เลย</p>
+
+                <div class="room-grid">
+                    <!-- โค้ดส่วนนี้คือปุ่มสำหรับกดเข้าห้องต่างๆ -->
+                    <div class="room-card" onclick="navigate('page-bedroom', 'nav-house')">
+                        <div class="icon">🛏️</div><div class="title">ห้องนอน</div>
                     </div>
-                    <div class="user-details">
-                        <h2><span id="pet-name-display">Joy Otter</span> <span class="level-badge">Lv. 1</span></h2>
+                    <div class="room-card" onclick="navigate('page-kitchen', 'nav-house')">
+                        <div class="icon">🍽️</div><div class="title">ห้องอาหาร</div>
+                    </div>
+                    <div class="room-card" onclick="alert('ระบบห้องน้ำกำลังมาเร็วๆ นี้!')">
+                        <div class="icon">🛁</div><div class="title">ห้องน้ำ</div>
+                    </div>
+                    <div class="room-card" onclick="alert('ระบบสวนกำลังมาเร็วๆ นี้!')">
+                        <div class="icon">🌳</div><div class="title">สวน</div>
                     </div>
                 </div>
-                <div class="header-icons"><i class="fas fa-gift" style="color:#ff5252;"></i><i class="fas fa-cog" style="color:#bdbdbd;"></i></div>
             </div>
-            <div class="stats-row">
-                <div class="stat-badge"><i class="fas fa-heart" style="color:#ff4081;"></i> 50/50</div>
-                <div class="stat-badge"><i class="fas fa-bolt" style="color:#ffca28;"></i> 50/50</div>
-                <div class="stat-badge"><i class="fas fa-coins" style="color:#ff9800;"></i> 1,200</div>
-                <div class="stat-badge"><i class="fas fa-gem" style="color:#40c4ff;"></i> 50</div>
-            </div>
-        </header>
 
-        <!-- 1. หน้าโฮม -->
-        <main id="tab-home" class="tab-content active">
-            <div class="room-content">
-                <div class="speech-bubble" id="pet-speech">วันนี้เป็นยังไงบ้าง พักผ่อนก่อนไหมนะ! 💙</div>
-                <div class="pet-character" onclick="showToast('จ๊ะเอ๋!')">
-                    <img id="main-pet-img" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Otter.png" alt="Pet">
+            <!-- หน้า 4: ห้องนอน (ห้องย่อยที่กดเข้ามาจากบ้าน) -->
+            <div id="page-bedroom" class="page">
+                <div class="page-title-row">
+                    <i class="fa-solid fa-arrow-left" onclick="navigate('page-house', 'nav-house')"></i>
+                    <h3>ห้องนอน</h3>
+                    <i class="fa-solid fa-times" onclick="navigate('page-home', 'nav-home')"></i>
+                </div>
+                <div style="text-align: center; margin-top: 40px; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    <div style="font-size: 60px; margin-bottom: 10px;">💤</div>
+                    <h4 style="color: #334155;">พักผ่อนเติมพลังงาน</h4>
+                    <button class="btn-action" onclick="alert('น้องเข้านอนเรียบร้อยแล้ว พลังงาน +20')">เข้านอน</button>
                 </div>
             </div>
-        </main>
 
-        <!-- 2. เลือกสัตว์เลี้ยง -->
-        <main id="tab-select" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> เลือกสัตว์เลี้ยง</div>
-            <div style="width:90%; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:15px;">
-                <div class="app-card" style="text-align:center; padding:10px; cursor:pointer;" onclick="switchTab('tab-home',0)"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Otter.png" style="width:40px;"><p style="font-size:10px; font-weight:700;">Otter</p></div>
-                <div class="app-card" style="text-align:center; padding:10px; cursor:pointer;" onclick="switchTab('tab-home',0)"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Bear.png" style="width:40px;"><p style="font-size:10px; font-weight:700;">Bear</p></div>
-                <div class="app-card" style="text-align:center; padding:10px; cursor:pointer;" onclick="switchTab('tab-home',0)"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat%20Face.png" style="width:40px;"><p style="font-size:10px; font-weight:700;">Cat</p></div>
-                <div class="app-card" style="text-align:center; padding:10px; cursor:pointer;" onclick="switchTab('tab-home',0)"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Panda.png" style="width:40px;"><p style="font-size:10px; font-weight:700;">Panda</p></div>
-            </div>
-        </main>
-
-        <!-- 3. ข้อมูลสัตว์เลี้ยง -->
-        <main id="tab-info" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> ข้อมูลสัตว์เลี้ยง</div>
-            <div class="app-card" style="text-align:center;">
-                <h3>Otter 🦦</h3>
-                <p style="font-size:12px; color:#777; margin-top:5px;">เลเวล 8 • นิสัย: ขี้อ้อน, รักสงบ</p>
-            </div>
-        </main>
-
-        <!-- 4. บ้านของน้อง (เมนูเลือกห้อง) -->
-        <main id="tab-house" class="tab-content" style="background:linear-gradient(180deg, #b3e5fc 0%, #c8e6c9 100%);">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> บ้านของน้อง</div>
-            <div style="width:90%; display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:10px;">
-                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-bedroom', 4)">🛏️<p style="font-weight:700; margin-top:5px;">ห้องนอน</p></div>
-                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-kitchen', 5)">🍽️<p style="font-weight:700; margin-top:5px;">ห้องอาหาร</p></div>
-                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-bathroom', 6)">🛁<p style="font-weight:700; margin-top:5px;">ห้องน้ำ</p></div>
-                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-garden', 7)">🌳<p style="font-weight:700; margin-top:5px;">สวน</p></div>
-                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-dress', 8)">👗<p style="font-weight:700; margin-top:5px;">ห้องแต่งตัว</p></div>
-                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-activity', 9)">🎨<p style="font-weight:700; margin-top:5px;">ห้องกิจกรรม</p></div>
-            </div>
-        </main>
-
-        <!-- 5. ห้องนอน (Bedroom) -->
-        <main id="tab-bedroom" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องนอน 🛏️</div>
-            <div class="app-card" style="text-align:center;">
-                <div style="font-size: 50px; margin-bottom: 10px;">🛏️💤</div>
-                <p style="font-size:13px; color:#555;">พลังงาน +20 เมื่อนอนพักผ่อน 02:30:00</p>
-                <button class="btn-purple" style="margin-top:15px;" onclick="showToast('น้องกำลังนอนหลับ Zzz 😴')">เข้านอน</button>
-            </div>
-        </main>
-
-        <!-- 6. ห้องอาหาร (Kitchen) -->
-        <main id="tab-kitchen" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องอาหาร 🍽️</div>
-            <div class="app-card">
-                <p style="font-weight:700; margin-bottom:10px;">เมนูอาหารโปรด</p>
-                <div style="display:flex; flex-direction:column; gap:8px;">
-                    <button class="btn-purple" onclick="showToast('กินแฮมเบอร์เกอร์แล้ว อร่อยจัง 🍔')">🍔 แฮมเบอร์เกอร์</button>
-                    <button class="btn-purple" onclick="showToast('ดื่มนมสดบำรุงสุขภาพ 🥛')">🥛 นมสด</button>
-                    <button class="btn-purple" onclick="showToast('กินเค้กสตรอว์เบอร์รี่หวานฉ่ำ 🍰')">🍰 เค้กสตรอว์เบอร์รี่</button>
+            <!-- หน้า 5: ห้องอาหาร (ห้องย่อยที่กดเข้ามาจากบ้าน) -->
+            <div id="page-kitchen" class="page">
+                <div class="page-title-row">
+                    <i class="fa-solid fa-arrow-left" onclick="navigate('page-house', 'nav-house')"></i>
+                    <h3>ห้องอาหาร</h3>
+                    <i class="fa-solid fa-times" onclick="navigate('page-home', 'nav-home')"></i>
+                </div>
+                <div style="text-align: center; margin-top: 40px; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    <div style="font-size: 60px; margin-bottom: 10px;">🍔</div>
+                    <h4 style="color: #334155;">หิวแล้ว ขอของกินหน่อย!</h4>
+                    <button class="btn-action" onclick="alert('ป้อนแฮมเบอร์เกอร์สำเร็จ ความสุข +10')">ให้อาหาร</button>
                 </div>
             </div>
-        </main>
 
-        <!-- 7. ห้องน้ำ (Bathroom) -->
-        <main id="tab-bathroom" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องน้ำ 🛁</div>
-            <div class="app-card" style="text-align:center;">
-                <div style="font-size: 50px; margin-bottom: 10px;">🧼💦</div>
-                <p style="font-size:13px; color:#555; margin-bottom:15px;">อาบน้ำและดูแลความสะอาดให้น้อง</p>
-                <button class="btn-purple" onclick="showToast('อาบน้ำสะอาดวิ้งๆ สดชื่นจัง 🫧')">อาบน้ำให้น้อง</button>
+        </div>
+
+        <!-- Bottom Navigation (เพิ่มปุ่ม "บ้าน" เข้าไปให้กดเข้าห้องได้) -->
+        <div class="bottom-nav">
+            <div class="nav-item active" id="nav-home" onclick="navigate('page-home', 'nav-home')">
+                <div class="nav-icon"><i class="fa-solid fa-house"></i></div><span>โฮม</span>
             </div>
-        </main>
-
-        <!-- 8. สวน (Garden) -->
-        <main id="tab-garden" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> สวนดอกไม้ 🌳</div>
-            <div class="app-card" style="text-align:center;">
-                <div style="font-size: 50px; margin-bottom: 10px;">🌻🪴</div>
-                <p style="font-size:13px; color:#555; margin-bottom:15px;">รดน้ำต้นไม้เพื่อรับความสุขและความรัก 🌸</p>
-                <button class="btn-purple" onclick="showToast('รดน้ำต้นไม้เรียบร้อย ดอกไม้บานแล้ว 🌱')">รดน้ำต้นไม้</button>
+            <div class="nav-item" id="nav-pets" onclick="navigate('page-pets', 'nav-pets')">
+                <div class="nav-icon"><i class="fa-solid fa-paw"></i></div><span>สัตว์เลี้ยง</span>
             </div>
-        </main>
-
-        <!-- 9. ห้องแต่งตัว (Dress Room) -->
-        <main id="tab-dress" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องแต่งตัว 👗</div>
-            <div class="app-card" style="text-align:center;">
-                <div style="font-size: 50px; margin-bottom: 10px;">👑🕶️</div>
-                <p style="font-size:13px; color:#555; margin-bottom:15px;">เลือกชุดน่ารักๆ และหมวกสุดเท่ให้น้อง</p>
-                <button class="btn-purple" onclick="showToast('สวมหมวกมงกุฎให้น้องแล้ว ✨')">ใส่หมวกมงกุฎ</button>
+            <!-- ปุ่มนี้สร้างมาเพื่อให้เชื่อมไปหา "ห้องต่างๆ" -->
+            <div class="nav-item" id="nav-house" onclick="navigate('page-house', 'nav-house')">
+                <div class="nav-icon"><i class="fa-solid fa-door-open"></i></div><span>บ้าน</span>
             </div>
-        </main>
-
-        <!-- 10. ห้องกิจกรรม (Activity Room) -->
-        <main id="tab-activity" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องกิจกรรม 🎨</div>
-            <div class="app-card" style="text-align:center;">
-                <div style="font-size: 50px; margin-bottom: 10px;">🧸🎈</div>
-                <p style="font-size:13px; color:#555; margin-bottom:15px;">เล่นของเล่นเพื่อเพิ่มความสุข +15 และพลังงาน +10</p>
-                <button class="btn-purple" onclick="showToast('เล่นของเล่นกับน้องสนุกจัง 🎉')">เล่นของเล่น</button>
+            <div class="nav-item" id="nav-diary" onclick="alert('เปิดหน้าไดอารี่')">
+                <div class="nav-icon"><i class="fa-solid fa-book"></i></div><span>ไดอารี่</span>
             </div>
-        </main>
-
-        <!-- 11. ทดสอบอารมณ์ + AI -->
-        <main id="tab-test" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> ทดสอบอารมณ์ + AI</div>
-            <div class="app-card">
-                <p style="font-weight:700; color:#4a148c; margin-bottom:8px;">🤖 Joy AI พร้อมรับฟัง</p>
-                <p style="font-size:12px; color:#555;">สวัสดีครับ ผมพร้อมรับฟังและพูดคุยดูแลคุณตลอดเวลา มีเรื่องอะไรอยากเล่าให้ผมฟังไหมครับ?</p>
+            <div class="nav-item" id="nav-shop" onclick="alert('เปิดหน้าร้านค้า')">
+                <div class="nav-icon"><i class="fa-solid fa-store"></i></div><span>ร้านค้า</span>
             </div>
-        </main>
-
-        <!-- 12. ไดอารี่ -->
-        <main id="tab-diary" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> ไดอารี่ความรู้สึก</div>
-            <div class="app-card">
-                <p style="font-weight:700; color:#4a148c; margin-bottom:8px;">📔 บันทึกเรื่องราววันนี้</p>
-                <textarea style="width:100%; height:70px; border-radius:10px; border:1px solid #ccc; padding:8px; font-size:12px;" placeholder="พิมพ์ระบายความรู้สึก..."></textarea>
-                <button class="btn-purple" style="margin-top:10px;" onclick="showToast('บันทึกไดอารี่สำเร็จ!')">บันทึก</button>
-            </div>
-        </main>
-
-        <!-- 13. ระบายความคิด -->
-        <main id="tab-release" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> กล่องระบายความคิด 🌠</div>
-            <div class="app-card" style="text-align:center;">
-                <p style="font-size:12px; color:#555; margin-bottom:10px;">พิมพ์ความเครียดแล้วปล่อยมันไปสู่ดวงดาว ✨</p>
-                <textarea style="width:100%; height:70px; border-radius:10px; border:1px solid #ccc; padding:8px; font-size:12px;" placeholder="ระบายความเครียดตรงนี้..."></textarea>
-                <button class="btn-purple" style="margin-top:10px;" onclick="showToast('ปล่อยความเครียดไปแล้ว สบายใจขึ้นไหม 😊')">ปล่อยไป ✨</button>
-            </div>
-        </main>
-
-        <!-- 14. เควส -->
-        <main id="tab-quest" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> เควสประจำวัน</div>
-            <div class="app-card" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><p style="font-weight:700; font-size:12px;">อาบน้ำ 1 ครั้ง</p><p style="font-size:10px; color:#ff9800;">+10 เหรียญ</p></div>
-                <button class="btn-purple" style="width:auto; padding:6px 12px; font-size:11px;" onclick="showToast('รับรางวัลแล้ว!')">รับ</button>
-            </div>
-        </main>
-
-        <!-- 15. มินิเกม -->
-        <main id="tab-games" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> มินิเกมสนุกๆ</div>
-            <div class="app-card" style="text-align:center;">
-                <p style="font-weight:700; color:#4a148c;">🫧 Bubble Pop</p>
-                <button class="btn-purple" style="margin-top:10px;" onclick="showToast('เริ่มเกม Bubble Pop!')">เล่นเลย</button>
-            </div>
-        </main>
-
-        <!-- 16. ร้านค้า -->
-        <main id="tab-shop" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> ร้านค้า (Shop)</div>
-            <div class="app-card" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><p style="font-weight:700;">🍔 แฮมเบอร์เกอร์</p><p style="font-size:10px; color:#ff9800;">350 เหรียญ</p></div>
-                <button class="btn-purple" style="width:auto; padding:6px 15px;" onclick="showToast('ซื้อสำเร็จ!')">ซื้อ</button>
-            </div>
-        </main>
-
-        <!-- 17. กระเป๋า -->
-        <main id="tab-bag" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> กระเป๋าไอเทม 🎒</div>
-            <div class="app-card" style="text-align:center;"><p>รายการอาหารและของใช้ทั้งหมดของคุณ</p></div>
-        </main>
-
-        <!-- 18. Collection Book -->
-        <main id="tab-collection" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> คอลเลกชัน 📚</div>
-            <div class="app-card" style="text-align:center;"><p>สะสมความทรงจำและไอเทมพิเศษ</p></div>
-        </main>
-
-        <!-- 19. Achievement -->
-        <main id="tab-achievement" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> ความสำเร็จ 🏆</div>
-            <div class="app-card" style="text-align:center;"><p>ปลดล็อกความสำเร็จและรับเพชรฟรี!</p></div>
-        </main>
-
-        <!-- 20. ความสัมพันธ์ (Bond) -->
-        <main id="tab-bond" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> ความสัมพันธ์ (Bond) 💕</div>
-            <div class="app-card" style="text-align:center;">
-                <p style="font-weight:700; color:#ff4081;">Lv. 6</p>
-                <p style="font-size:11px; color:#666; margin-top:5px;">"เราชอบอยู่กับคุณที่สุดเลย!"</p>
-            </div>
-        </main>
-
-        <!-- 21. วิวัฒนาการ -->
-        <main id="tab-evolution" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> วิวัฒนาการ 🌟</div>
-            <div class="app-card" style="text-align:center;">
-                <p style="font-weight:700; color:#4a148c;">ร่างที่ 1 ➔ ร่างที่ 2 (Lv. 5)</p>
-                <button class="btn-purple" style="margin-top:10px;" onclick="showToast('เงื่อนไขยังไม่ครบจ้า')">วิวัฒนาการ</button>
-            </div>
-        </main>
-
-        <!-- 22. ตั้งค่า -->
-        <main id="tab-settings" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> ตั้งค่า ⚙️</div>
-            <div class="app-card">
-                <p style="font-weight:700; margin-bottom:5px;">เสียงเอฟเฟกต์ / เพลง</p>
-                <p style="font-size:11px; color:#777;">เวอร์ชันแอป: 1.0.0</p>
-            </div>
-        </main>
-
-        <!-- 23. เมนูเพิ่มเติม -->
-        <main id="tab-menu" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> เมนูเพิ่มเติม 📌</div>
-            <div class="app-card" onclick="showToast('ออกจากระบบแล้ว')"><p style="color:#f44336; font-weight:700;"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</p></div>
-        </main>
-
-        <!-- แท็บดนตรี -->
-        <main id="tab-music" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> คลื่นวิทยุผ่อนคลาย 🎵</div>
-            <div class="app-card" style="display:flex; justify-content:space-between; align-items:center;" onclick="document.getElementById('bg-music-nature').play(); showToast('กำลังเล่นเสียงธรรมชาติ...');">
-                <div><p style="font-weight:700;">เสียงธรรมชาติบำบัด</p><p style="font-size:10px; color:#777;">คลิกเพื่อฟัง</p></div>
-                <i class="fas fa-play-circle" style="font-size:24px; color:#ffb300;"></i>
-            </div>
-        </main>
-
-        <!-- ================= Bottom Navigation ================= -->
-        <nav class="bottom-nav">
-            <div class="nav-item active" onclick="switchTab('tab-home', 0)"><i class="fas fa-home"></i><span>โฮม</span></div>
-            <div class="nav-item" onclick="switchTab('tab-select', 1)"><i class="fas fa-paw"></i><span>เลือกสัตว์</span></div>
-            <div class="nav-item" onclick="switchTab('tab-info', 2)"><i class="fas fa-star"></i><span>ข้อมูล</span></div>
-            <div class="nav-item" onclick="switchTab('tab-house', 3)"><i class="fas fa-map-marked-alt"></i><span>บ้าน</span></div>
-            <div class="nav-item" onclick="switchTab('tab-bedroom', 4)"><i class="fas fa-bed"></i><span>ห้องนอน</span></div>
-            <div class="nav-item" onclick="switchTab('tab-kitchen', 5)"><i class="fas fa-utensils"></i><span>ห้องอาหาร</span></div>
-            <div class="nav-item" onclick="switchTab('tab-bathroom', 6)"><i class="fas fa-bath"></i><span>ห้องน้ำ</span></div>
-            <div class="nav-item" onclick="switchTab('tab-garden', 7)"><i class="fas fa-tree"></i><span>สวน</span></div>
-            <div class="nav-item" onclick="switchTab('tab-dress', 8)"><i class="fas fa-tshirt"></i><span>แต่งตัว</span></div>
-            <div class="nav-item" onclick="switchTab('tab-activity', 9)"><i class="fas fa-puzzle-piece"></i><span>กิจกรรม</span></div>
-            <div class="nav-item" onclick="switchTab('tab-test', 10)"><i class="fas fa-robot"></i><span>ทดสอบ+AI</span></div>
-            <div class="nav-item" onclick="switchTab('tab-diary', 11)"><i class="fas fa-book-open"></i><span>ไดอารี่</span></div>
-            <div class="nav-item" onclick="switchTab('tab-release', 12)"><i class="fas fa-star-shooting"></i><span>ระบาย</span></div>
-            <div class="nav-item" onclick="switchTab('tab-quest', 13)"><i class="fas fa-bullseye"></i><span>เควส</span></div>
-            <div class="nav-item" onclick="switchTab('tab-games', 14)"><i class="fas fa-gamepad"></i><span>มินิเกม</span></div>
-            <div class="nav-item" onclick="switchTab('tab-shop', 15)"><i class="fas fa-store"></i><span>ร้านค้า</span></div>
-            <div class="nav-item" onclick="switchTab('tab-bag', 16)"><i class="fas fa-shopping-bag"></i><span>กระเป๋า</span></div>
-            <div class="nav-item" onclick="switchTab('tab-collection', 17)"><i class="fas fa-bookmark"></i><span>คอลเลกชัน</span></div>
-            <div class="nav-item" onclick="switchTab('tab-achievement', 18)"><i class="fas fa-trophy"></i><span>ความสำเร็จ</span></div>
-            <div class="nav-item" onclick="switchTab('tab-bond', 19)"><i class="fas fa-heart"></i><span>ความสัมพันธ์</span></div>
-            <div class="nav-item" onclick="switchTab('tab-evolution', 20)"><i class="fas fa-dna"></i><span>วิวัฒนาการ</span></div>
-            <div class="nav-item" onclick="switchTab('tab-settings', 21)"><i class="fas fa-cog"></i><span>ตั้งค่า</span></div>
-            <div class="nav-item" onclick="switchTab('tab-menu', 22)"><i class="fas fa-bars"></i><span>เมนู</span></div>
-            <div class="nav-item" onclick="switchTab('tab-music', 23)"><i class="fas fa-music"></i><span>ดนตรี</span></div>
-        </nav>
+        </div>
     </div>
 
     <script>
-        function switchTab(tabId, navIndex) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-            
-            const targetTab = document.getElementById(tabId);
-            if (targetTab) targetTab.classList.add('active');
-            
-            if (navIndex !== undefined && navItems[navIndex]) {
-                const activeNav = navItems[navIndex];
-                activeNav.classList.add('active');
-                activeNav.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }
-        }
+        // ฟังก์ชันหัวใจหลักที่ทำให้กดสลับหน้าได้จริงๆ
+        function navigate(pageId, navId) {
+            // 1. ซ่อนทุกหน้า
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            // 2. แสดงหน้าที่เลือก
+            document.getElementById(pageId).classList.add('active');
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.innerText = msg;
-            t.style.opacity = '1';
-            setTimeout(() => t.style.opacity = '0', 2000);
+            // 3. เปลี่ยนสีปุ่มเมนูด้านล่างให้รู้ว่ากำลังอยู่หน้าไหน
+            if(navId) {
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                document.getElementById(navId).classList.add('active');
+            }
         }
     </script>
 </body>
