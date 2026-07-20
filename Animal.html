@@ -19,35 +19,37 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column;
         }
 
-        /* Top Bar */
+        /* Top Bar - ปรับตำแหน่งให้อยู่พอดี */
         .top-bar { 
-            position: absolute; top: 15px; left: 15px; right: 15px; 
+            position: absolute; top: 12px; left: 15px; right: 15px; 
             background: rgba(255, 255, 255, 0.95); border-radius: 25px; 
-            padding: 12px 15px; z-index: 20; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 10px 15px; z-index: 20; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .profile-area { display: flex; align-items: center; gap: 10px; }
-        .profile-pic { width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid #f3e5f5; cursor: pointer; overflow: hidden; }
-        .user-details h2 { font-size: 14px; color: #333; line-height: 1.2; display: flex; align-items: center; gap: 5px; font-weight: 700; }
+        .profile-pic { width: 38px; height: 38px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid #f3e5f5; cursor: pointer; overflow: hidden; }
+        .user-details h2 { font-size: 13px; color: #333; line-height: 1.2; display: flex; align-items: center; gap: 5px; font-weight: 700; }
         .level-badge { font-size: 9px; background: #fff; border: 1px solid #e0e0e0; color: #777; padding: 2px 6px; border-radius: 10px; font-weight: 700; }
         .stats-row { display: flex; justify-content: space-between; gap: 5px; }
-        .stat-badge { flex: 1; background: #fff; border-radius: 12px; padding: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #555; gap: 4px; border: 1px solid #f0f0f0; }
+        .stat-badge { flex: 1; background: #fff; border-radius: 10px; padding: 3px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #555; gap: 3px; border: 1px solid #f0f0f0; }
 
-        /* Tabs System */
-        .tab-content { display: none; flex: 1; overflow-y: auto; position: relative; padding-top: 105px; padding-bottom: 90px; flex-direction: column; align-items: center; background: #fdfbfd; }
+        /* Tabs System - ขยับพื้นที่ด้านบนลงมา (padding-top) เพื่อไม่ให้หัวข้อชนกับ Top bar */
+        .tab-content { display: none; flex: 1; overflow-y: auto; position: relative; padding-top: 115px; padding-bottom: 90px; flex-direction: column; align-items: center; background: #fdfbfd; }
         .tab-content.active { display: flex; }
-        .page-header { width: 90%; display: flex; align-items: center; font-size: 16px; font-weight: 700; color: #4a148c; margin-bottom: 15px; gap: 15px; }
-        .page-header i { font-size: 16px; color: #7e57c2; cursor: pointer; }
         
-        .btn-purple { background: linear-gradient(135deg, #ce93d8 0%, #ab47bc 100%); color: white; border: none; padding: 12px; border-radius: 20px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(171, 71, 188, 0.3); }
+        /* หัวข้อบนซ้ายที่ขอให้เลื่อนลงมา */
+        .page-header { width: 90%; display: flex; align-items: center; font-size: 15px; font-weight: 700; color: #4a148c; margin-bottom: 12px; gap: 12px; margin-top: 5px; }
+        .page-header i { font-size: 15px; color: #7e57c2; cursor: pointer; }
+        
+        .btn-purple { background: linear-gradient(135deg, #ce93d8 0%, #ab47bc 100%); color: white; border: none; padding: 10px 15px; border-radius: 18px; font-size: 13px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(171, 71, 188, 0.3); }
 
         /* 1. Home Tab */
         #tab-home { background: linear-gradient(180deg, #fff0f5 0%, #ffe4e1 100%); }
-        .room-content { position: relative; z-index: 1; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: -20px; }
+        .room-content { position: relative; z-index: 1; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: -10px; }
         .speech-bubble { background: #fff; padding: 12px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; color: #6a1b9a; margin-bottom: 20px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 2px solid #f3e5f5; }
         .pet-character img { width: 150px; height: 150px; cursor: pointer; object-fit: contain; }
 
-        /* General Card UI สำหรับแท็บต่างๆ */
+        /* General Card UI */
         .app-card { width: 90%; background: #fff; border-radius: 20px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 2px solid #f3e5f5; margin-bottom: 12px; }
 
         /* Bottom Navigation (เลื่อนอัตโนมัติ) */
@@ -62,7 +64,7 @@
         .nav-item.active { color: #ab47bc; font-weight: 700; }
         .nav-item.active i { transform: translateY(-3px) scale(1.1); color: #ab47bc; }
 
-        .toast { position: absolute; top: 90px; left: 50%; transform: translateX(-50%); background: #4a148c; color: white; padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; opacity: 0; transition: 0.3s; z-index: 100; }
+        .toast { position: absolute; top: 105px; left: 50%; transform: translateX(-50%); background: #4a148c; color: white; padding: 8px 18px; border-radius: 20px; font-size: 12px; font-weight: 700; opacity: 0; transition: 0.3s; z-index: 100; }
     </style>
 </head>
 <body>
@@ -76,7 +78,7 @@
             <div class="header-top">
                 <div class="profile-area">
                     <div class="profile-pic" onclick="switchTab('tab-select', 1)">
-                        <img id="profile-icon-img" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Otter.png" style="width: 30px; object-fit: contain;">
+                        <img id="profile-icon-img" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Otter.png" style="width: 28px; object-fit: contain;">
                     </div>
                     <div class="user-details">
                         <h2><span id="pet-name-display">Joy Otter</span> <span class="level-badge">Lv. 1</span></h2>
@@ -125,57 +127,69 @@
         <!-- 4. บ้านของน้อง -->
         <main id="tab-house" class="tab-content" style="background:linear-gradient(180deg, #b3e5fc 0%, #c8e6c9 100%);">
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> บ้านของน้อง</div>
-            <div style="text-align:center; margin-top:60px;">
-                <p style="font-weight:700; font-size:16px;">🏡 มุมพักผ่อนและห้องต่างๆ</p>
+            <div style="width:90%; display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:10px;">
+                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-bedroom', 4)">🛏️<p style="font-weight:700; margin-top:5px;">ห้องนอน</p></div>
+                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-kitchen', 5)">🍽️<p style="font-weight:700; margin-top:5px;">ห้องอาหาร</p></div>
+                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-bathroom', 6)">🛁<p style="font-weight:700; margin-top:5px;">ห้องน้ำ</p></div>
+                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-garden', 7)">🌳<p style="font-weight:700; margin-top:5px;">สวน</p></div>
+                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-dress', 8)">👗<p style="font-weight:700; margin-top:5px;">ห้องแต่งตัว</p></div>
+                <div class="app-card" style="text-align:center; cursor:pointer;" onclick="switchTab('tab-activity', 9)">🎨<p style="font-weight:700; margin-top:5px;">ห้องกิจกรรม</p></div>
             </div>
         </main>
 
         <!-- 5. ห้องนอน -->
         <main id="tab-bedroom" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 2)"></i> ห้องนอน 🛏️</div>
+            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องนอน 🛏️</div>
             <div class="app-card" style="text-align:center;">
-                <p>พลังงาน +20 เมื่อนอนพักผ่อน 02:30:00</p>
-                <button class="btn-purple" style="margin-top:10px;" onclick="showToast('น้องกำลังนอนหลับ Zzz')">เข้านอน</button>
+                <p style="font-size:13px; color:#555;">พลังงาน +20 เมื่อนอนพักผ่อน 02:30:00</p>
+                <button class="btn-purple" style="margin-top:15px;" onclick="showToast('น้องกำลังนอนหลับ Zzz 😴')">เข้านอน</button>
             </div>
         </main>
 
         <!-- 6. ห้องอาหาร -->
         <main id="tab-kitchen" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 2)"></i> ห้องอาหาร 🍽️</div>
+            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องอาหาร 🍽️</div>
             <div class="app-card">
-                <p style="font-weight:700; margin-bottom:10px;">อาหารโปรดของน้อง</p>
-                <div style="display:flex; gap:10px;">
-                    <button class="btn-purple" onclick="showToast('ป้อนแฮมเบอร์เกอร์แล้ว 🍔')">กินแฮมเบอร์เกอร์</button>
+                <p style="font-weight:700; margin-bottom:10px;">เมนูอาหารโปรด</p>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                    <button class="btn-purple" onclick="showToast('กินแฮมเบอร์เกอร์แล้ว อร่อยจัง 🍔')">🍔 แฮมเบอร์เกอร์</button>
+                    <button class="btn-purple" onclick="showToast('ดื่มนมสดบำรุงสุขภาพ 🥛')">🥛 นมสด</button>
                 </div>
             </div>
         </main>
 
         <!-- 7. ห้องน้ำ -->
         <main id="tab-bathroom" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 2)"></i> ห้องน้ำ 🛁</div>
+            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องน้ำ 🛁</div>
             <div class="app-card" style="text-align:center;">
-                <button class="btn-purple" onclick="showToast('อาบน้ำสะอาดวิ้งๆ 🫧')">อาบน้ำให้น้อง</button>
+                <p style="font-size:13px; color:#555; margin-bottom:15px;">อาบน้ำและดูแลความสะอาดให้น้อง</p>
+                <button class="btn-purple" onclick="showToast('อาบน้ำสะอาดวิ้งๆ สดชื่นจัง 🫧')">อาบน้ำให้น้อง</button>
             </div>
         </main>
 
         <!-- 8. สวน -->
         <main id="tab-garden" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 2)"></i> สวนดอกไม้ 🌳</div>
+            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> สวนดอกไม้ 🌳</div>
             <div class="app-card" style="text-align:center;">
-                <p>รดน้ำต้นไม้เพื่อรับความสุขและความรัก 🌸</p>
+                <p style="font-size:13px; color:#555; margin-bottom:15px;">รดน้ำต้นไม้เพื่อรับความสุขและความรัก 🌸</p>
+                <button class="btn-purple" onclick="showToast('รดน้ำต้นไม้เรียบร้อย ดอกไม้บานแล้ว 🌱')">รดน้ำต้นไม้</button>
             </div>
         </main>
 
         <!-- 9. ห้องแต่งตัว -->
         <main id="tab-dress" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 2)"></i> ห้องแต่งตัว 👗</div>
-            <div class="app-card" style="text-align:center;"><p>เลือกชุดน่ารักๆ ให้สัตว์เลี้ยงของคุณ</p></div>
+            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องแต่งตัว 👗</div>
+            <div class="app-card" style="text-align:center;">
+                <p style="font-size:13px; color:#555;">เลือกชุดน่ารักๆ ให้สัตว์เลี้ยงของคุณ</p>
+            </div>
         </main>
 
         <!-- 10. ห้องกิจกรรม -->
         <main id="tab-activity" class="tab-content">
-            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 2)"></i> ห้องกิจกรรม 🎨</div>
-            <div class="app-card" style="text-align:center;"><p>ความสุข +15, พลังงาน +10</p></div>
+            <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องกิจกรรม 🎨</div>
+            <div class="app-card" style="text-align:center;">
+                <p style="font-size:13px; color:#555;">ความสุข +15, พลังงาน +10</p>
+            </div>
         </main>
 
         <!-- 11. ทดสอบอารมณ์ + AI -->
@@ -183,7 +197,7 @@
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> ทดสอบอารมณ์ + AI</div>
             <div class="app-card">
                 <p style="font-weight:700; color:#4a148c; margin-bottom:8px;">🤖 Joy AI พร้อมรับฟัง</p>
-                <p style="font-size:12px; color:#555;">สวัสดีครับ วันนี้คุณรู้สึกอย่างไรบ้าง เล่าให้ผมฟังได้นะ</p>
+                <p style="font-size:12px; color:#555;">สวัสดีครับ ผมพร้อมรับฟังและพูดคุยดูแลคุณตลอดเวลา มีเรื่องอะไรอยากเล่าให้ผมฟังไหมครับ?</p>
             </div>
         </main>
 
@@ -294,7 +308,7 @@
             </div>
         </main>
 
-        <!-- ================= Bottom Navigation (รวมไอคอนหลักครบถ้วนและเลื่อนได้) ================= -->
+        <!-- ================= Bottom Navigation ================= -->
         <nav class="bottom-nav">
             <div class="nav-item active" onclick="switchTab('tab-home', 0)"><i class="fas fa-home"></i><span>โฮม</span></div>
             <div class="nav-item" onclick="switchTab('tab-select', 1)"><i class="fas fa-paw"></i><span>เลือกสัตว์</span></div>
