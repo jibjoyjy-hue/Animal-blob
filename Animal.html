@@ -19,7 +19,7 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column;
         }
 
-        /* Top Bar - ปรับตำแหน่งให้อยู่พอดี */
+        /* Top Bar */
         .top-bar { 
             position: absolute; top: 12px; left: 15px; right: 15px; 
             background: rgba(255, 255, 255, 0.95); border-radius: 25px; 
@@ -33,11 +33,11 @@
         .stats-row { display: flex; justify-content: space-between; gap: 5px; }
         .stat-badge { flex: 1; background: #fff; border-radius: 10px; padding: 3px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #555; gap: 3px; border: 1px solid #f0f0f0; }
 
-        /* Tabs System - ขยับพื้นที่ด้านบนลงมา (padding-top) เพื่อไม่ให้หัวข้อชนกับ Top bar */
+        /* Tabs System */
         .tab-content { display: none; flex: 1; overflow-y: auto; position: relative; padding-top: 115px; padding-bottom: 90px; flex-direction: column; align-items: center; background: #fdfbfd; }
         .tab-content.active { display: flex; }
         
-        /* หัวข้อบนซ้ายที่ขอให้เลื่อนลงมา */
+        /* หัวข้อบนซ้ายที่เลื่อนลงมาพอดี */
         .page-header { width: 90%; display: flex; align-items: center; font-size: 15px; font-weight: 700; color: #4a148c; margin-bottom: 12px; gap: 12px; margin-top: 5px; }
         .page-header i { font-size: 15px; color: #7e57c2; cursor: pointer; }
         
@@ -52,7 +52,7 @@
         /* General Card UI */
         .app-card { width: 90%; background: #fff; border-radius: 20px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 2px solid #f3e5f5; margin-bottom: 12px; }
 
-        /* Bottom Navigation (เลื่อนอัตโนมัติ) */
+        /* Bottom Navigation */
         .bottom-nav { 
             position: absolute; bottom: 0; left: 0; right: 0; background: #fff; 
             display: flex; overflow-x: auto; scroll-behavior: smooth;
@@ -124,7 +124,7 @@
             </div>
         </main>
 
-        <!-- 4. บ้านของน้อง -->
+        <!-- 4. บ้านของน้อง (เมนูเลือกห้อง) -->
         <main id="tab-house" class="tab-content" style="background:linear-gradient(180deg, #b3e5fc 0%, #c8e6c9 100%);">
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-home', 0)"></i> บ้านของน้อง</div>
             <div style="width:90%; display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:10px;">
@@ -137,16 +137,17 @@
             </div>
         </main>
 
-        <!-- 5. ห้องนอน -->
+        <!-- 5. ห้องนอน (Bedroom) -->
         <main id="tab-bedroom" class="tab-content">
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องนอน 🛏️</div>
             <div class="app-card" style="text-align:center;">
+                <div style="font-size: 50px; margin-bottom: 10px;">🛏️💤</div>
                 <p style="font-size:13px; color:#555;">พลังงาน +20 เมื่อนอนพักผ่อน 02:30:00</p>
                 <button class="btn-purple" style="margin-top:15px;" onclick="showToast('น้องกำลังนอนหลับ Zzz 😴')">เข้านอน</button>
             </div>
         </main>
 
-        <!-- 6. ห้องอาหาร -->
+        <!-- 6. ห้องอาหาร (Kitchen) -->
         <main id="tab-kitchen" class="tab-content">
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องอาหาร 🍽️</div>
             <div class="app-card">
@@ -154,41 +155,48 @@
                 <div style="display:flex; flex-direction:column; gap:8px;">
                     <button class="btn-purple" onclick="showToast('กินแฮมเบอร์เกอร์แล้ว อร่อยจัง 🍔')">🍔 แฮมเบอร์เกอร์</button>
                     <button class="btn-purple" onclick="showToast('ดื่มนมสดบำรุงสุขภาพ 🥛')">🥛 นมสด</button>
+                    <button class="btn-purple" onclick="showToast('กินเค้กสตรอว์เบอร์รี่หวานฉ่ำ 🍰')">🍰 เค้กสตรอว์เบอร์รี่</button>
                 </div>
             </div>
         </main>
 
-        <!-- 7. ห้องน้ำ -->
+        <!-- 7. ห้องน้ำ (Bathroom) -->
         <main id="tab-bathroom" class="tab-content">
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องน้ำ 🛁</div>
             <div class="app-card" style="text-align:center;">
+                <div style="font-size: 50px; margin-bottom: 10px;">🧼💦</div>
                 <p style="font-size:13px; color:#555; margin-bottom:15px;">อาบน้ำและดูแลความสะอาดให้น้อง</p>
                 <button class="btn-purple" onclick="showToast('อาบน้ำสะอาดวิ้งๆ สดชื่นจัง 🫧')">อาบน้ำให้น้อง</button>
             </div>
         </main>
 
-        <!-- 8. สวน -->
+        <!-- 8. สวน (Garden) -->
         <main id="tab-garden" class="tab-content">
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> สวนดอกไม้ 🌳</div>
             <div class="app-card" style="text-align:center;">
+                <div style="font-size: 50px; margin-bottom: 10px;">🌻🪴</div>
                 <p style="font-size:13px; color:#555; margin-bottom:15px;">รดน้ำต้นไม้เพื่อรับความสุขและความรัก 🌸</p>
                 <button class="btn-purple" onclick="showToast('รดน้ำต้นไม้เรียบร้อย ดอกไม้บานแล้ว 🌱')">รดน้ำต้นไม้</button>
             </div>
         </main>
 
-        <!-- 9. ห้องแต่งตัว -->
+        <!-- 9. ห้องแต่งตัว (Dress Room) -->
         <main id="tab-dress" class="tab-content">
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องแต่งตัว 👗</div>
             <div class="app-card" style="text-align:center;">
-                <p style="font-size:13px; color:#555;">เลือกชุดน่ารักๆ ให้สัตว์เลี้ยงของคุณ</p>
+                <div style="font-size: 50px; margin-bottom: 10px;">👑🕶️</div>
+                <p style="font-size:13px; color:#555; margin-bottom:15px;">เลือกชุดน่ารักๆ และหมวกสุดเท่ให้น้อง</p>
+                <button class="btn-purple" onclick="showToast('สวมหมวกมงกุฎให้น้องแล้ว ✨')">ใส่หมวกมงกุฎ</button>
             </div>
         </main>
 
-        <!-- 10. ห้องกิจกรรม -->
+        <!-- 10. ห้องกิจกรรม (Activity Room) -->
         <main id="tab-activity" class="tab-content">
             <div class="page-header"><i class="fas fa-arrow-left" onclick="switchTab('tab-house', 3)"></i> ห้องกิจกรรม 🎨</div>
             <div class="app-card" style="text-align:center;">
-                <p style="font-size:13px; color:#555;">ความสุข +15, พลังงาน +10</p>
+                <div style="font-size: 50px; margin-bottom: 10px;">🧸🎈</div>
+                <p style="font-size:13px; color:#555; margin-bottom:15px;">เล่นของเล่นเพื่อเพิ่มความสุข +15 และพลังงาน +10</p>
+                <button class="btn-purple" onclick="showToast('เล่นของเล่นกับน้องสนุกจัง 🎉')">เล่นของเล่น</button>
             </div>
         </main>
 
